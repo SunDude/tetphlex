@@ -439,7 +439,7 @@ void GLWrapper::addDisplayCB(void (*func)(void)) {
 	myDisplayCB = func;
 }
 void GLWrapper::displayCB() {
-	debugOut("\nin GLWrapper::displayCB()\n");
+	// debugOut("\nin GLWrapper::displayCB()\n");
 	(*myDisplayCB)();
 }
 
