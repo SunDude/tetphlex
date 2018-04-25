@@ -38,6 +38,7 @@ private:
 public:
 	static bool init(); // TODO: try init all
 	static void setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
+	static void setCameraDefaults();
 	static void clearBuffer();
 	static void pushMatrix();
 	static void popMatrix();

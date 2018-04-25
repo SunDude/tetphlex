@@ -6134,6 +6134,7 @@ screenHeight	glwrapper.h	/^	static int screenHeight;$/;"	m	class:GLWrapper
 screenWidth	glwrapper.cpp	/^int GLWrapper::screenWidth = SCREEN_WIDTH;$/;"	m	class:GLWrapper	file:
 screenWidth	glwrapper.h	/^	static int screenWidth;$/;"	m	class:GLWrapper
 setCamera	glwrapper.cpp	/^void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ) {$/;"	f	class:GLWrapper
+setCameraDefaults	glwrapper.cpp	/^void GLWrapper::setCameraDefaults() {$/;"	f	class:GLWrapper
 showInfo	glwrapper.cpp	/^void GLWrapper::showInfo() {$/;"	f	class:GLWrapper
 stateMachine	main.cpp	/^StateMachine stateMachine;$/;"	v
 swapBuffers	glwrapper.cpp	/^void GLWrapper::swapBuffers() {$/;"	f	class:GLWrapper

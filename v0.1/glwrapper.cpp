@@ -345,6 +345,12 @@ void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, flo
 	gluLookAt(posX, posY, posZ, targetX, targetY, targetZ, 0, 1, 0); // eye(x,y,z), focal(x,y,z), up(x,y,z)
 }
 
+void GLWrapper::setCameraDefaults() {
+	glTranslatef(0, 0, -cameraDistance);
+	glRotatef(cameraAngleX, 1, 0, 0);	// pitch
+	glRotatef(cameraAngleY, 0, 1, 0);	// heading
+}
+
 void GLWrapper::clearBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }

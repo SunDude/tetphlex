@@ -12260,6 +12260,7 @@ screenWidth	v0.1/glwrapper.h	/^	static int screenWidth;$/;"	m	class:GLWrapper
 setCamera	example/main.cpp	/^void setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ)$/;"	f
 setCamera	legacy/tetphlex.cpp	/^void setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ) {$/;"	f
 setCamera	v0.1/glwrapper.cpp	/^void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ) {$/;"	f	class:GLWrapper
+setCameraDefaults	v0.1/glwrapper.cpp	/^void GLWrapper::setCameraDefaults() {$/;"	f	class:GLWrapper
 showInfo	example/main.cpp	/^void showInfo()$/;"	f
 showInfo	v0.1/glwrapper.cpp	/^void GLWrapper::showInfo() {$/;"	f	class:GLWrapper
 stateMachine	v0.1/main.cpp	/^StateMachine stateMachine;$/;"	v

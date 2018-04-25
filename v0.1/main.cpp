@@ -37,7 +37,7 @@ public:
 	}
 
 	void updateState(StateMachine *sm) {
-
+		debugOut("updating myTetris state\n");
 		// update physics
 		int now = glutGet(GLUT_ELAPSED_TIME);
 		// cout << now-last << "\n";
@@ -84,14 +84,11 @@ public:
 		// render
 		//=============================================================================
 
-		// clear buffer
-		myGL->clearBuffer();
-
 		// save the initial ModelView matrix before modifying ModelView matrix
 		myGL->pushMatrix();
 
 		// tramsform camera
-		// TODO
+		myGL->setCameraDefaults();
 
 		float mx, my, mz;
 		mx = my = mz = 0.80f; // scales cubes by factor
@@ -118,11 +115,9 @@ public:
 
 		myGL->drawLineSeg3D(Vect3D(highx, lowy, 0), Vect3D(highx, highy, 0), linethickness);
 
-		// showInfo();		// print max range of glDrawRangeElements
+		myGL->showInfo();		// print max range of glDrawRangeElements
 
 		myGL->popMatrix();
-
-		myGL->swapBuffers();
 	}
 
 	void exitState() {
@@ -138,7 +133,6 @@ void myDisplayCB() {
 
 int main(int argc, char **argv) {
 	myGL = new GLWrapper(argc, argv);
-	debugOut("\nfinished making new myGL\n");
 	myGL->addDisplayCB(myDisplayCB);
 
 	stateMachine.changeState(&myTetris);
