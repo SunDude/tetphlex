@@ -19,6 +19,8 @@ private:
 	static void initLights();
 
 	// global variables
+	static void (*myDisplayCB)(void);
+
 	static constexpr void *font = GLUT_BITMAP_8_BY_13;
 	static int screenWidth;
 	static int screenHeight;
@@ -36,8 +38,13 @@ private:
 public:
 	static bool init(); // TODO: try init all
 	static void setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
+	static void clearBuffer();
+	static void pushMatrix();
+	static void popMatrix();
+	static void swapBuffers();
 
 	// call back functions
+	static void addDisplayCB(void (*func)(void));
 	static void displayCB();
 	static void reshapeCB(int w, int h);
 	static void timerCB(int millisec);

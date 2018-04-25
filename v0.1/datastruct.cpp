@@ -40,3 +40,31 @@ std::ostream& operator<<(std::ostream& os, const Vect3D &u) {
 	os << "(" << u.x << ", " << u.y << ", " << u.z << ")";
 	return os;
 }
+
+StateMachine::StateMachine() {
+	currentState = NULL;
+}
+
+void StateMachine::changeState(AbstractState *newState) {
+	if (currentState) {
+		currentState->exitState();
+	}
+	if (newState) {
+		newState->enterState(this);
+	}
+	currentState = newState;
+}
+
+AbstractState* StateMachine::getCurrentState() {
+	return currentState;
+}
+
+void StateMachine::update() {
+	if (currentState) {
+		currentState->updateState(this);
+	}
+}
+
+void AbstractState::enterState(StateMachine *sm) { }
+void AbstractState::updateState(StateMachine *sm) { }
+void AbstractState::exitState() { }

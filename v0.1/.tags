@@ -6,7 +6,10 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 APIENTRY	glext.h	43;"	d
 APIENTRYP	glext.h	46;"	d
+AbstractState	datastruct.h	/^class AbstractState {$/;"	c
 CAMERA_DISTANCE	glwrapper.h	/^const GLfloat CAMERA_DISTANCE = 15.0f;$/;"	v
+DEBUG	datastruct.h	7;"	d
+FPS	datastruct.h	/^const float FPS = 60;$/;"	v
 GLAPI	glext.h	49;"	d
 GLDEBUGPROCAMD	glext.h	/^typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id,GLenum category,GLenum severity,GLsizei length,const GLchar *message,GLvoid *userParam);$/;"	t
 GLDEBUGPROCARB	glext.h	/^typedef void (APIENTRY *GLDEBUGPROCARB)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,GLvoid *userParam);$/;"	t
@@ -6034,27 +6037,37 @@ PFNGLWINDOWPOS4SVMESAPROC	glext.h	/^typedef void (APIENTRYP PFNGLWINDOWPOS4SVMES
 PFNGLWRITEMASKEXTPROC	glext.h	/^typedef void (APIENTRYP PFNGLWRITEMASKEXTPROC) (GLuint res, GLuint in, GLenum outX, GLenum outY, GLenum outZ, GLenum outW);$/;"	t
 SCREEN_HEIGHT	glwrapper.h	/^const int	SCREEN_HEIGHT	= 800;$/;"	v
 SCREEN_WIDTH	glwrapper.h	/^const int	SCREEN_WIDTH	= 600;$/;"	v
-State	stateManager.cpp	/^class State {$/;"	c	file:
+StateMachine	datastruct.cpp	/^StateMachine::StateMachine() {$/;"	f	class:StateMachine
+StateMachine	datastruct.h	/^class StateMachine {$/;"	c
 TEXT_HEIGHT	glwrapper.h	/^const int	TEXT_HEIGHT		= 13;$/;"	v
 TEXT_WIDTH	glwrapper.h	/^const int	TEXT_WIDTH		= 8;$/;"	v
+TetrisState	main.cpp	/^	TetrisState() {$/;"	f	class:TetrisState
+TetrisState	main.cpp	/^class TetrisState: public AbstractState {$/;"	c	file:
 Vect3D	datastruct.cpp	/^Vect3D::Vect3D() : x(0), y(0), z(0) {$/;"	f	class:Vect3D
 Vect3D	datastruct.cpp	/^Vect3D::Vect3D(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {$/;"	f	class:Vect3D
 Vect3D	datastruct.h	/^class Vect3D {$/;"	c
 WIN32_LEAN_AND_MEAN	glext.h	38;"	d
 __glext_h_	glext.h	2;"	d
+addDisplayCB	glwrapper.cpp	/^void GLWrapper::addDisplayCB(void (*func)(void)) {$/;"	f	class:GLWrapper
 boardData	glwrapper.cpp	/^int boardData[10][22];$/;"	v
+boardData	main.cpp	/^	int boardData[10][22];$/;"	m	class:TetrisState	file:
 cameraAngleX	glwrapper.cpp	/^GLfloat GLWrapper::cameraAngleX = 0.0f;$/;"	m	class:GLWrapper	file:
 cameraAngleX	glwrapper.h	/^	static GLfloat cameraAngleX;$/;"	m	class:GLWrapper
 cameraAngleY	glwrapper.cpp	/^GLfloat GLWrapper::cameraAngleY = 0.0f;$/;"	m	class:GLWrapper	file:
 cameraAngleY	glwrapper.h	/^	static GLfloat cameraAngleY;$/;"	m	class:GLWrapper
 cameraDistance	glwrapper.cpp	/^GLfloat GLWrapper::cameraDistance = CAMERA_DISTANCE;$/;"	m	class:GLWrapper	file:
 cameraDistance	glwrapper.h	/^	static GLfloat cameraDistance;$/;"	m	class:GLWrapper
+changeState	datastruct.cpp	/^void StateMachine::changeState(AbstractState *newState) {$/;"	f	class:StateMachine
+clearBuffer	glwrapper.cpp	/^void GLWrapper::clearBuffer() {$/;"	f	class:GLWrapper
 clearSharedMem	glwrapper.cpp	/^void GLWrapper::clearSharedMem() {$/;"	f	class:GLWrapper
 cross	datastruct.cpp	/^Vect3D Vect3D::cross(const Vect3D &u, const Vect3D &v) {$/;"	f	class:Vect3D
 cubeColors	glwrapper.cpp	/^GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
 cubeNormals	glwrapper.cpp	/^GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
 cubeVertices	glwrapper.cpp	/^GLfloat cubeVertices[] = { 0.5, 0.5, 0.5,  -0.5, 0.5, 0.5,  -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   \/\/ v0,v1,v2,v3 (front)$/;"	v
-displayCB	glwrapper.cpp	/^void GLWrapper::displayCB()$/;"	f	class:GLWrapper
+currentState	datastruct.h	/^	AbstractState *currentState; \/\/ change to stack$/;"	m	class:StateMachine
+debugOut	datastruct.h	/^void debugOut(T t) {$/;"	f
+debugOut	datastruct.h	/^void debugOut(T t, Args... args) {$/;"	f
+displayCB	glwrapper.cpp	/^void GLWrapper::displayCB() {$/;"	f	class:GLWrapper
 dot	datastruct.cpp	/^float Vect3D::dot(const Vect3D &u, const Vect3D &v) {$/;"	f	class:Vect3D
 drawLineSeg3D	glwrapper.cpp	/^void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {$/;"	f	class:GLWrapper
 drawMode	glwrapper.cpp	/^int GLWrapper::drawMode = 0;$/;"	m	class:GLWrapper	file:
@@ -6062,9 +6075,15 @@ drawMode	glwrapper.h	/^	static int drawMode;$/;"	m	class:GLWrapper
 drawQuad3D	glwrapper.cpp	/^void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags) {$/;"	f	class:GLWrapper
 drawString	glwrapper.cpp	/^void drawString(const char *str, int x, int y, float color[4], void *font) {$/;"	f
 drawString3D	glwrapper.cpp	/^void GLWrapper::drawString3D(const char *str, float pos[3], float color[4], void *font) {$/;"	f	class:GLWrapper
+enterState	datastruct.cpp	/^void AbstractState::enterState(StateMachine *sm) { }$/;"	f	class:AbstractState
+enterState	main.cpp	/^	void enterState(StateMachine *sm) {$/;"	f	class:TetrisState
+exitState	datastruct.cpp	/^void AbstractState::exitState() { }$/;"	f	class:AbstractState
+exitState	main.cpp	/^	void exitState() {$/;"	f	class:TetrisState
 fadeDelay	glwrapper.cpp	/^int fadeDelay = 30; \/\/ number of frames to exist before fading$/;"	v
+fadeDelay	main.cpp	/^	int fadeDelay = 0.5f * FPS;$/;"	m	class:TetrisState	file:
 font	glwrapper.h	/^	static constexpr void *font = GLUT_BITMAP_8_BY_13;$/;"	m	class:GLWrapper
-glDrawRangeElements	glwrapper.cpp	26;"	d	file:
+getCurrentState	datastruct.cpp	/^AbstractState* StateMachine::getCurrentState() {$/;"	f	class:StateMachine
+glDrawRangeElements	glwrapper.cpp	24;"	d	file:
 indices	glwrapper.cpp	/^GLubyte indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
 initGL	glwrapper.cpp	/^void GLWrapper::initGL() {$/;"	f	class:GLWrapper
 initGLUT	glwrapper.cpp	/^int GLWrapper::initGLUT(int argc, char **argv) {$/;"	f	class:GLWrapper
@@ -6075,10 +6094,11 @@ int32_t	glext.h	/^typedef long int int32_t;$/;"	t
 int64_t	glext.h	/^typedef __int64 int64_t;$/;"	t
 int64_t	glext.h	/^typedef long int int64_t;$/;"	t
 int64_t	glext.h	/^typedef long long int int64_t;$/;"	t
-keyboardCB	glwrapper.cpp	/^void GLWrapper::keyboardCB(unsigned char key, int x, int y)$/;"	f	class:GLWrapper
+keyboardCB	glwrapper.cpp	/^void GLWrapper::keyboardCB(unsigned char key, int x, int y) {$/;"	f	class:GLWrapper
 last	glwrapper.cpp	/^int last = -1;$/;"	v
+lastUpdateTime	main.cpp	/^	int lastUpdateTime;$/;"	m	class:TetrisState	file:
 magnitude	datastruct.cpp	/^float Vect3D::magnitude() {$/;"	f	class:Vect3D
-main	glwrapper.cpp	/^int main(int argc, char **argv) {$/;"	f
+main	main.cpp	/^int main(int argc, char **argv) {$/;"	f
 maxIndices	glwrapper.cpp	/^int GLWrapper::maxIndices = 0;$/;"	m	class:GLWrapper	file:
 maxIndices	glwrapper.h	/^	static int maxIndices;$/;"	m	class:GLWrapper
 maxVertices	glwrapper.cpp	/^int GLWrapper::maxVertices = 0;$/;"	m	class:GLWrapper	file:
@@ -6096,23 +6116,35 @@ mouseX	glwrapper.cpp	/^GLfloat GLWrapper::mouseX = 0, GLWrapper::mouseY = 0;$/;"
 mouseX	glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	m	class:GLWrapper
 mouseY	glwrapper.cpp	/^GLfloat GLWrapper::mouseX = 0, GLWrapper::mouseY = 0;$/;"	m	class:GLWrapper	file:
 mouseY	glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	m	class:GLWrapper
+myDisplayCB	glwrapper.cpp	/^void (*GLWrapper::myDisplayCB)(void) = NULL;$/;"	v
+myDisplayCB	glwrapper.h	/^	static void (*myDisplayCB)(void);$/;"	m	class:GLWrapper
+myDisplayCB	main.cpp	/^void myDisplayCB() {$/;"	f
+myGL	main.cpp	/^GLWrapper *myGL;$/;"	v
+myTetris	main.cpp	/^}myTetris;$/;"	v	typeref:class:TetrisState
 operator *	datastruct.cpp	/^Vect3D Vect3D::operator*(const float &s) {$/;"	f	class:Vect3D
 operator +	datastruct.cpp	/^Vect3D Vect3D::operator+(const Vect3D &v) {$/;"	f	class:Vect3D
 operator -	datastruct.cpp	/^Vect3D Vect3D::operator-(const Vect3D &v) {$/;"	f	class:Vect3D
 operator /	datastruct.cpp	/^Vect3D Vect3D::operator\/(const float &s) {$/;"	f	class:Vect3D
 operator <<	datastruct.cpp	/^std::ostream& operator<<(std::ostream& os, const Vect3D &u) {$/;"	f
-reshapeCB	glwrapper.cpp	/^void GLWrapper::reshapeCB(int w, int h)$/;"	f	class:GLWrapper
+popMatrix	glwrapper.cpp	/^void GLWrapper::popMatrix() {$/;"	f	class:GLWrapper
+pushMatrix	glwrapper.cpp	/^void GLWrapper::pushMatrix() {$/;"	f	class:GLWrapper
+reshapeCB	glwrapper.cpp	/^void GLWrapper::reshapeCB(int w, int h) {$/;"	f	class:GLWrapper
 screenHeight	glwrapper.cpp	/^int GLWrapper::screenHeight = SCREEN_HEIGHT;$/;"	m	class:GLWrapper	file:
 screenHeight	glwrapper.h	/^	static int screenHeight;$/;"	m	class:GLWrapper
 screenWidth	glwrapper.cpp	/^int GLWrapper::screenWidth = SCREEN_WIDTH;$/;"	m	class:GLWrapper	file:
 screenWidth	glwrapper.h	/^	static int screenWidth;$/;"	m	class:GLWrapper
 setCamera	glwrapper.cpp	/^void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ) {$/;"	f	class:GLWrapper
 showInfo	glwrapper.cpp	/^void GLWrapper::showInfo() {$/;"	f	class:GLWrapper
-timerCB	glwrapper.cpp	/^void GLWrapper::timerCB(int millisec)$/;"	f	class:GLWrapper
+stateMachine	main.cpp	/^StateMachine stateMachine;$/;"	v
+swapBuffers	glwrapper.cpp	/^void GLWrapper::swapBuffers() {$/;"	f	class:GLWrapper
+timerCB	glwrapper.cpp	/^void GLWrapper::timerCB(int millisec) {$/;"	f	class:GLWrapper
 toPerspective	glwrapper.cpp	/^void GLWrapper::toPerspective() {$/;"	f	class:GLWrapper
 uint64_t	glext.h	/^typedef unsigned __int64 uint64_t;$/;"	t
 uint64_t	glext.h	/^typedef unsigned long int uint64_t;$/;"	t
 uint64_t	glext.h	/^typedef unsigned long long int uint64_t;$/;"	t
+update	datastruct.cpp	/^void StateMachine::update() {$/;"	f	class:StateMachine
+updateState	datastruct.cpp	/^void AbstractState::updateState(StateMachine *sm) { }$/;"	f	class:AbstractState
+updateState	main.cpp	/^	void updateState(StateMachine *sm) {$/;"	f	class:TetrisState
 x	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D
 y	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D
 z	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D

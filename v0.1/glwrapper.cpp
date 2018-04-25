@@ -12,8 +12,6 @@
 #include <cmath>
 #include "glwrapper.h"
 
-#include <sys/time.h>
-
 using std::stringstream;
 using std::cout;
 using std::endl;
@@ -27,6 +25,8 @@ PFNGLDRAWRANGEELEMENTSPROC pglDrawRangeElements = 0;
 #endif
 
 // global variables
+void (*GLWrapper::myDisplayCB)(void) = NULL;
+
 int GLWrapper::screenWidth = SCREEN_WIDTH;
 int GLWrapper::screenHeight = SCREEN_HEIGHT;
 bool GLWrapper::mouseLeftDown = false;
@@ -190,20 +190,6 @@ GLWrapper::GLWrapper(int argc, char **argv) {
 	#endif
 }
 
-///////////////////////////////////////////////////////////////////////////////
-int main(int argc, char **argv) {
-	GLWrapper myGL(argc, argv);
-
-	// the last GLUT call (LOOP)
-	// window will be shown and display callback is triggered by events
-	// NOTE: this call never return main().
-	glutMainLoop(); /* Start GLUT event-processing loop */
-
-	return 0;
-}
-
-
-
 // initialize GLUT for windowing
 ///////////////////////////////////////////////////////////////////////////////
 int GLWrapper::initGLUT(int argc, char **argv) {
@@ -359,7 +345,18 @@ void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, flo
 	gluLookAt(posX, posY, posZ, targetX, targetY, targetZ, 0, 1, 0); // eye(x,y,z), focal(x,y,z), up(x,y,z)
 }
 
-
+void GLWrapper::clearBuffer() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+void GLWrapper::pushMatrix() {
+	glPushMatrix();
+}
+void GLWrapper::popMatrix() {
+	glPopMatrix();
+}
+void GLWrapper::swapBuffers() {
+	glutSwapBuffers();
+}
 
 // display info messages
 ///////////////////////////////////////////////////////////////////////////////
@@ -438,127 +435,30 @@ int boardData[10][22];
 int last = -1;
 int fadeDelay = 30; // number of frames to exist before fading
 
-void GLWrapper::displayCB()
-{
-	// MISC: TO DELETE
-	int now = glutGet(GLUT_ELAPSED_TIME);
-	cout << now-last << "\n";
-	//if (now-last >= 1000.0f/15) { /*// = 1000ms / fps
-	if (true) { // */
-		last = now;
-		for (int i=0; i<10; i++) {
-			for (int j=1; j<22; j++) {
-				if (boardData[i][j] && !boardData[i][j-1]) {
-					boardData[i][j-1] = 1;
-					boardData[i][j] = 0;
-				}
-			}
-		}
-		for (int j=0; j<22; j++) {
-			bool full = true;
-			for (int i=0; i<10; i++) {
-				if (!boardData[i][j]) full = 0;
-			}
-			if (full) {
-				for (int i=0; i<10; i++) {
-					if(boardData[i][j] < fadeDelay) boardData[i][j]++;
-					else boardData[i][j] = 0;
-				}
-			}
-			else break;
-		}
-		bool top = false;
-		for (int i=0; i<10; i++) {
-			if (boardData[i][21]) top = true;
-		}
-		if (top) {
-			for (int i=0; i<10; i++) {
-				for (int j=0; j<22; j++) {
-					if(boardData[i][j]) boardData[i][j] = min(std::rand()%3, 1);
-				}
-			}
-		}
-
-		if (std::rand()%5) {
-			boardData[std::rand()%10][21] = true;
-		}
-	}
-	//=============================================================================
-
-	// clear buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-	// save the initial ModelView matrix before modifying ModelView matrix
-	glPushMatrix();
-
-	// tramsform camera
-	glTranslatef(0, 0, -cameraDistance);
-	glRotatef(cameraAngleX, 1, 0, 0);	// pitch
-	glRotatef(cameraAngleY, 0, 1, 0);	// heading
-	float mx, my, mz;
-	mx = my = mz = 0.80f; // scales cubes by factor
-
-	// draw grid
-	float linethickness = 0.05f;
-	float xoff = -5;
-	float yoff = -11;
-	float lowx = -5.5f;
-	float highx = 4.5f;
-	float lowy = -11.5f;
-	float highy = 8.5f;
-
-	for (int i=0; i<10; i++) {
-		float ii = i+xoff;
-		for (int j=0; j<20; j++) {
-			float jj = j+yoff;
-			if (boardData[i][j]) drawQuad3D(Vect3D(ii, jj, 0), Vect3D(mx, my, mz), Vect3D(0, 1, 0), boardData[i][j]>fadeDelay/2);
-			drawLineSeg3D(Vect3D(lowx, jj-0.5f, 0), Vect3D(highx, jj-0.5f, 0), linethickness);
-		}
-		drawLineSeg3D(Vect3D(lowx, highy, 0), Vect3D(highx, highy, 0), linethickness);
-		drawLineSeg3D(Vect3D(ii-0.5f, lowy, 0), Vect3D(ii-0.5f, highy, 0), linethickness);
-	}
-
-	drawLineSeg3D(Vect3D(highx, lowy, 0), Vect3D(highx, highy, 0), linethickness);
-
-
-	// print text
-	// float pos[4] = {-4.0f,3.5f,0,1};
-	// float color[4] = {1,1,1,1};
-	// drawString3D("Immediate", pos, color, font);
-	// pos[0] = 0.5f;
-	// drawString3D("glDrawArrays()", pos, color, font);
-	// pos[0] = -5.0f; pos[1] = -4.0f;
-	// drawString3D("glDrawElements()", pos, color, font);
-	// pos[0] = 0.5f;
-	// drawString3D("glDrawRangeElements()", pos, color, font);
-
-	showInfo();		// print max range of glDrawRangeElements
-
-	glPopMatrix();
-
-	glutSwapBuffers();
+void GLWrapper::addDisplayCB(void (*func)(void)) {
+	myDisplayCB = func;
+}
+void GLWrapper::displayCB() {
+	debugOut("\nin GLWrapper::displayCB()\n");
+	(*myDisplayCB)();
 }
 
 
-void GLWrapper::reshapeCB(int w, int h)
-{
+void GLWrapper::reshapeCB(int w, int h) {
 	screenWidth = w;
 	screenHeight = h;
 	toPerspective();
 }
 
 
-void GLWrapper::timerCB(int millisec)
-{
+void GLWrapper::timerCB(int millisec) {
 	glutTimerFunc(millisec, timerCB, millisec);
 	glutPostRedisplay();
 }
 
 
-void GLWrapper::keyboardCB(unsigned char key, int x, int y)
-{
-	switch(key)
-	{
+void GLWrapper::keyboardCB(unsigned char key, int x, int y) {
+	switch(key)	{
 		case 27: // ESCAPE
 			clearSharedMem();
 			exit(0);

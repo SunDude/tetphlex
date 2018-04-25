@@ -2,11 +2,33 @@
 #include <cmath>
 #include <iostream>
 
+using std::clog;
+
+#define DEBUG true
+
+const float FPS = 60;
+
 template<typename T>
 T min(T a, T b) {
 	if (b<a) return b;
 	else return a;
 }
+
+template <typename T>
+void debugOut(T t) {
+	if(DEBUG) {
+		clog<< t;
+	}
+}
+
+template<typename T, typename... Args>
+void debugOut(T t, Args... args) {
+	if(DEBUG) {
+		clog<< t;
+		debugOut(args...);
+	}
+};
+
 
 class Vect3D {
 private:
@@ -37,3 +59,23 @@ public:
 //  | |v7---|-|v4
 //  |/      |/
 //  v2------v3
+
+class AbstractState;
+
+class StateMachine {
+private:
+	AbstractState *currentState; // change to stack
+public:
+	StateMachine();
+	void changeState(AbstractState *newState);
+	AbstractState* getCurrentState();
+	void update();
+};
+
+class AbstractState {
+private:
+public:
+	virtual void enterState(StateMachine *sm);
+	virtual void updateState(StateMachine *sm);
+	virtual void exitState();
+};
