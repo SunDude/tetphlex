@@ -10,6 +10,7 @@
 #include "glwrapper.h"
 #include "statemanager.h"
 #include "glext.h"
+#include "gameobjects.h"
 
 StateMachine stateMachine;
 GLWrapper *myGL;
@@ -37,7 +38,6 @@ public:
 	}
 
 	void updateState(StateMachine *sm) {
-		debugOut("updating myTetris state\n");
 		// update physics
 		int now = glutGet(GLUT_ELAPSED_TIME);
 		// cout << now-last << "\n";
@@ -91,7 +91,7 @@ public:
 		myGL->setCameraDefaults();
 
 		float mx, my, mz;
-		mx = my = mz = 0.81f; // scales cubes by factor
+		mx = my = mz = 0.80f; // scales cubes by factor
 
 		// draw grid
 		float linethickness = 0.05f;

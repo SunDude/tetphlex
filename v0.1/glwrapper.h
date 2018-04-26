@@ -1,5 +1,16 @@
 #pragma once
 
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+#include <glm/glm.hpp>
+
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
 #include "glext.h"
 #include "datastruct.h"
 
@@ -61,6 +72,27 @@ public:
 	static void drawString3D(const char *str, float pos[3], float color[4], void *font);
 	static void drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags);
 	static void drawLineSeg3D(Vect3D a, Vect3D b, float thic);
+	static void drawPoly3D(Polygon3D &data, Transformation &tarns) {
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glNormalPointer(GL_FLOAT, 0, data.normals);
+		glColorPointer(3, GL_FLOAT, 0, data.colors);
+		glVertexPointer(3, GL_FLOAT, 0, data.vertices);
+
+		glPushMatrix();
+
+		// TODO APPLY TRANSFORMATION	//
+
+
+		glDrawElements(GL_TRIANGLES, data.count, GL_UNSIGNED_SHORT, data.indices);
+
+		glPopMatrix();
+
+		glDisableClientState(GL_VERTEX_ARRAY);	// disable vertex arrays
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+	}
 
 	static void showInfo();
 

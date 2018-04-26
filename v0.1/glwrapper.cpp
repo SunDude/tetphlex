@@ -1,11 +1,3 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
-
-#include <glm/glm.hpp>
-
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -79,7 +71,7 @@ GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   // v0,v1,
 	                    0, 0, 1,   0, 0, 0,   0, 1, 0,   0, 1, 1 }; // v4,v7,v6,v5 (back)
 
 // index array of vertex array for glDrawElements() & glDrawRangeElement()
-GLubyte indices[]  = { 0, 1, 2,   2, 3, 0,      // front
+GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      // front
 	                   4, 5, 6,   6, 7, 4,      // right
 	                   8, 9,10,  10,11, 8,      // top
 	                  12,13,14,  14,15,12,      // left
@@ -122,7 +114,7 @@ void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flag
 	glRotatef(360*rotRads/(2*M_PI), n.x, n.y, n.z);
 	glScalef(scale.x, scale.y, scale.z);	//
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
 
 	glPopMatrix();
 
@@ -161,7 +153,7 @@ void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {
 	glRotatef(360*rotRads/(2*M_PI), n.x, n.y, n.z);
 	glScalef(thic, v.magnitude(), thic);	//
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
 
 	glPopMatrix();
 

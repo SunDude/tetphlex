@@ -1,8 +1,21 @@
 #pragma once
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
 #include <cmath>
 #include <iostream>
 
 using std::clog;
+using glm::mat4;
+using glm::vec3;
+using glm::vec4;
 
 #define DEBUG true
 
@@ -44,6 +57,9 @@ public:
 		Vect3D operator/(const float &s);
 
 		float magnitude();
+		vec3 toVec3() {
+			return vec3(x, y, z);
+		}
 
 		static Vect3D cross(const Vect3D &u, const Vect3D &v);
 		static float dot(const Vect3D &u, const Vect3D &v);
@@ -78,4 +94,33 @@ public:
 	virtual void enterState(StateMachine *sm);
 	virtual void updateState(StateMachine *sm);
 	virtual void exitState();
+};
+
+class Polygon3D {
+public:
+	GLfloat *vertices, *normals, *colors;
+	GLushort *indices;
+	int count;
+	Polygon3D() {
+		vertices = normals = colors = NULL;
+		indices = NULL;
+		count = 0;
+	}
+};
+
+class Transformation {
+public:
+	Vect3D position, rotation, scale;
+	float degrees;
+	void setIdentity() {
+		position = rotation = scale = Vect3D(0, 0, 0);
+		degrees = 0;
+	}
+	mat4 getTransformation() {
+		mat4 transformation = mat4(1.0f);
+		transformation = glm::translate(transformation, position.toVec3());
+		transformation = glm::scale(transformation, scale.toVec3());
+		transformation = glm::rotate(transformation, degrees, rotation.toVec3());
+		return transformation;
+	}
 };
