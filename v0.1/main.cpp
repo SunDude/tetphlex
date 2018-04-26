@@ -91,7 +91,7 @@ public:
 		myGL->setCameraDefaults();
 
 		float mx, my, mz;
-		mx = my = mz = 0.80f; // scales cubes by factor
+		mx = my = mz = 0.81f; // scales cubes by factor
 
 		// draw grid
 		float linethickness = 0.05f;
