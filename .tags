@@ -10,6 +10,8 @@ APIENTRYP	example/glext.h	46;"	d
 APIENTRYP	v0.1/glext.h	46;"	d
 AR	example/makefile	/^AR = ar$/;"	m
 AbstractState	v0.1/datastruct.h	/^class AbstractState {$/;"	c
+BOARD_HEIGHT	v0.1/datastruct.h	22;"	d
+BOARD_WIDTH	v0.1/datastruct.h	21;"	d
 CAMERA_DISTANCE	example/main.cpp	/^const float CAMERA_DISTANCE = 10.0f;$/;"	v
 CAMERA_DISTANCE	legacy/tetphlex.cpp	/^const float CAMERA_DISTANCE = 10.0f;$/;"	v
 CAMERA_DISTANCE	v0.1/glwrapper.h	/^const GLfloat CAMERA_DISTANCE = 15.0f;$/;"	v
@@ -17,6 +19,8 @@ CC	example/makefile	/^CC = gcc$/;"	m
 CFLAGS	example/makefile	/^CFLAGS = -Wall -O2$/;"	m
 CFLAGS_DEFAULT	example/makefile	/^CFLAGS_DEFAULT = $(CFLAGS)$/;"	m
 CPP	example/makefile	/^CPP = g++$/;"	m
+CubeObject	v0.1/main.cpp	/^	CubeObject() {$/;"	f	class:CubeObject
+CubeObject	v0.1/main.cpp	/^class CubeObject: private GameObject {$/;"	c	file:
 DEBUG	v0.1/datastruct.h	20;"	d
 DEP_DEFAULT	example/makefile	/^DEP_DEFAULT = $/;"	m
 F77	example/makefile	/^F77 = f77$/;"	m
@@ -8028,6 +8032,8 @@ GLuint64EXT	example/glext.h	/^typedef uint64_t GLuint64EXT;$/;"	t
 GLuint64EXT	v0.1/glext.h	/^typedef uint64_t GLuint64EXT;$/;"	t
 GLvdpauSurfaceNV	example/glext.h	/^typedef GLintptr GLvdpauSurfaceNV;$/;"	t
 GLvdpauSurfaceNV	v0.1/glext.h	/^typedef GLintptr GLvdpauSurfaceNV;$/;"	t
+GameBoard	v0.1/main.cpp	/^	GameBoard() {$/;"	f	class:GameBoard
+GameBoard	v0.1/main.cpp	/^class GameBoard {$/;"	c	file:
 GameObject	v0.1/gameobjects.h	/^	GameObject() {$/;"	f	class:GameObject
 GameObject	v0.1/gameobjects.h	/^class GameObject {$/;"	c
 INC	example/makefile	/^INC = $/;"	m
@@ -8039,6 +8045,9 @@ LIB	example/makefile	/^LIB = -lglut -lGLU -lGL -lm$/;"	m
 LIBDIR	example/makefile	/^LIBDIR = $/;"	m
 LIBDIR_DEFAULT	example/makefile	/^LIBDIR_DEFAULT = $(LIBDIR)$/;"	m
 LIB_DEFAULT	example/makefile	/^LIB_DEFAULT = $(LIB)$/;"	m
+List	v0.1/datastruct.h	/^class List {$/;"	c
+Node	v0.1/datastruct.h	/^	Node(T &d, Node &nxt, Node &prev) : next(nxt), previous(prev) {$/;"	f	class:Node
+Node	v0.1/datastruct.h	/^class Node {$/;"	c
 OBJDIR_DEFAULT	example/makefile	/^OBJDIR_DEFAULT = obj$/;"	m
 OBJ_DEFAULT	example/makefile	/^OBJ_DEFAULT = $(OBJDIR_DEFAULT)\/main.o$/;"	m
 OUT_DEFAULT	example/makefile	/^OUT_DEFAULT = vertexArray$/;"	m
@@ -12085,6 +12094,7 @@ PFNGLWINDOWPOS4SVMESAPROC	v0.1/glext.h	/^typedef void (APIENTRYP PFNGLWINDOWPOS4
 PFNGLWRITEMASKEXTPROC	example/glext.h	/^typedef void (APIENTRYP PFNGLWRITEMASKEXTPROC) (GLuint res, GLuint in, GLenum outX, GLenum outY, GLenum outZ, GLenum outW);$/;"	t
 PFNGLWRITEMASKEXTPROC	v0.1/glext.h	/^typedef void (APIENTRYP PFNGLWRITEMASKEXTPROC) (GLuint res, GLuint in, GLenum outX, GLenum outY, GLenum outZ, GLenum outW);$/;"	t
 Polygon3D	v0.1/datastruct.h	/^	Polygon3D() {$/;"	f	class:Polygon3D
+Polygon3D	v0.1/datastruct.h	/^	Polygon3D(GLfloat *vert, GLfloat *norm, GLfloat *color, GLushort *idx, int c) :$/;"	f	class:Polygon3D
 Polygon3D	v0.1/datastruct.h	/^class Polygon3D {$/;"	c
 RANLIB	example/makefile	/^RANLIB = ranlib$/;"	m
 RCFLAGS	example/makefile	/^RCFLAGS = $/;"	m
@@ -12109,6 +12119,8 @@ TEXT_WIDTH	legacy/tetphlex.cpp	/^const int   TEXT_WIDTH      = 8;$/;"	v
 TEXT_WIDTH	v0.1/glwrapper.h	/^const int	TEXT_WIDTH		= 8;$/;"	v
 TetrisState	v0.1/main.cpp	/^	TetrisState() {$/;"	f	class:TetrisState
 TetrisState	v0.1/main.cpp	/^class TetrisState: public AbstractState {$/;"	c	file:
+Transformation	v0.1/datastruct.h	/^	Transformation() {$/;"	f	class:Transformation
+Transformation	v0.1/datastruct.h	/^	Transformation(Vect3D &pos) {$/;"	f	class:Transformation
 Transformation	v0.1/datastruct.h	/^class Transformation {$/;"	c
 Vect3D	v0.1/datastruct.cpp	/^Vect3D::Vect3D() : x(0), y(0), z(0) {$/;"	f	class:Vect3D
 Vect3D	v0.1/datastruct.cpp	/^Vect3D::Vect3D(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {$/;"	f	class:Vect3D
@@ -12123,7 +12135,6 @@ __glext_h_	example/glext.h	2;"	d
 __glext_h_	v0.1/glext.h	2;"	d
 addDisplayCB	v0.1/glwrapper.cpp	/^void GLWrapper::addDisplayCB(void (*func)(void)) {$/;"	f	class:GLWrapper
 boardData	v0.1/glwrapper.cpp	/^int boardData[10][22];$/;"	v
-boardData	v0.1/main.cpp	/^	int boardData[10][22];$/;"	m	class:TetrisState	file:
 cameraAngleX	example/main.cpp	/^float cameraAngleX;$/;"	v
 cameraAngleX	v0.1/glwrapper.cpp	/^GLfloat GLWrapper::cameraAngleX = 0.0f;$/;"	m	class:GLWrapper	file:
 cameraAngleX	v0.1/glwrapper.h	/^	static GLfloat cameraAngleX;$/;"	m	class:GLWrapper
@@ -12142,17 +12153,20 @@ colors1	example/main.cpp	/^GLfloat colors1[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0
 colors2	example/main.cpp	/^GLfloat colors2[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
 count	v0.1/datastruct.h	/^	int count;$/;"	m	class:Polygon3D
 cross	v0.1/datastruct.cpp	/^Vect3D Vect3D::cross(const Vect3D &u, const Vect3D &v) {$/;"	f	class:Vect3D
-cubeColors	v0.1/glwrapper.cpp	/^GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
-cubeNormals	v0.1/glwrapper.cpp	/^GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeColors	v0.1/main.cpp	/^GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeCount	v0.1/main.cpp	/^int cubeCount = 36;$/;"	v
+cubeNormals	v0.1/main.cpp	/^GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
 cubeVertexData	legacy/drawgeometry.cpp	/^static const GLdouble cubeVertexData[] = { $/;"	v	file:
-cubeVertices	v0.1/glwrapper.cpp	/^GLfloat cubeVertices[] = { 0.5, 0.5, 0.5,  -0.5, 0.5, 0.5,  -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeVertices	v0.1/main.cpp	/^GLfloat cubeVertices[] = { 0.5, 0.5, 0.5,  -0.5, 0.5, 0.5,  -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubes	v0.1/main.cpp	/^	CubeObject cubes[BOARD_WIDTH][BOARD_HEIGHT];$/;"	m	class:GameBoard	file:
 currentState	v0.1/datastruct.h	/^	AbstractState *currentState; \/\/ change to stack$/;"	m	class:StateMachine
+data	v0.1/datastruct.h	/^	T *data;$/;"	m	class:Node
 data	v0.1/gameobjects.h	/^	Polygon3D data;$/;"	m	class:RenderObject
 debugOut	legacy/tetphlex.cpp	/^void debugOut(T t) {$/;"	f
 debugOut	legacy/tetphlex.cpp	/^void debugOut(T t, Args... args) {$/;"	f
 debugOut	v0.1/datastruct.h	/^void debugOut(T t) {$/;"	f
 debugOut	v0.1/datastruct.h	/^void debugOut(T t, Args... args) {$/;"	f
-degrees	v0.1/datastruct.h	/^	float degrees;$/;"	m	class:Transformation
+degrees	v0.1/datastruct.h	/^	float degrees; \/\/ 360*radians\/(2*M_PI)$/;"	m	class:Transformation
 display	legacy/tetphlex.cpp	/^void display(void) {$/;"	f
 displayCB	example/main.cpp	/^void displayCB()$/;"	f
 displayCB	v0.1/glwrapper.cpp	/^void GLWrapper::displayCB() {$/;"	f	class:GLWrapper
@@ -12163,13 +12177,11 @@ draw3	example/main.cpp	/^void draw3()$/;"	f
 draw4	example/main.cpp	/^void draw4()$/;"	f
 draw5	example/main.cpp	/^void draw5()$/;"	f
 drawGeo	legacy/drawgeometry.h	/^class drawGeo {$/;"	c
-drawLineSeg3D	v0.1/glwrapper.cpp	/^void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {$/;"	f	class:GLWrapper
 drawMode	example/main.cpp	/^int drawMode;$/;"	v
 drawMode	v0.1/glwrapper.cpp	/^int GLWrapper::drawMode = 0;$/;"	m	class:GLWrapper	file:
 drawMode	v0.1/glwrapper.h	/^	static int drawMode;$/;"	m	class:GLWrapper
 drawOneLine	legacy/tetphlex.cpp	18;"	d	file:
-drawPoly3D	v0.1/glwrapper.h	/^	static void drawPoly3D(Polygon3D &data, Transformation &tarns) {$/;"	f	class:GLWrapper
-drawQuad3D	v0.1/glwrapper.cpp	/^void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags) {$/;"	f	class:GLWrapper
+drawPoly3D	v0.1/glwrapper.h	/^	static void drawPoly3D(Polygon3D &data, Transformation &trans) {$/;"	f	class:GLWrapper
 drawString	example/main.cpp	/^void drawString(const char *str, int x, int y, float color[4], void *font)$/;"	f
 drawString	v0.1/glwrapper.cpp	/^void drawString(const char *str, int x, int y, float color[4], void *font) {$/;"	f
 drawString3D	example/main.cpp	/^void drawString3D(const char *str, float pos[3], float color[4], void *font)$/;"	f
@@ -12183,6 +12195,7 @@ fadeDelay	v0.1/glwrapper.cpp	/^int fadeDelay = 30; \/\/ number of frames to exis
 fadeDelay	v0.1/main.cpp	/^	int fadeDelay = 0.5f * FPS;$/;"	m	class:TetrisState	file:
 font	example/main.cpp	/^void *font = GLUT_BITMAP_8_BY_13;$/;"	v
 font	v0.1/glwrapper.h	/^	static constexpr void *font = GLUT_BITMAP_8_BY_13;$/;"	m	class:GLWrapper
+gameBoard	v0.1/main.cpp	/^	GameBoard gameBoard;$/;"	m	class:TetrisState	file:
 getCubeVertex	legacy/drawgeometry.cpp	/^void drawGeo::getCubeVertex(GLdouble *out, GLdouble x, GLdouble y, GLdouble z, GLdouble length) {$/;"	f	class:drawGeo
 getCurrentState	v0.1/datastruct.cpp	/^AbstractState* StateMachine::getCurrentState() {$/;"	f	class:StateMachine
 getTransformation	v0.1/datastruct.h	/^	mat4 getTransformation() {$/;"	f	class:Transformation
@@ -12191,7 +12204,7 @@ glDrawRangeElements	v0.1/glwrapper.cpp	16;"	d	file:
 height	legacy/tetphlex.cpp	/^		int width, height;$/;"	m	class:WinConfig	file:
 indices	example/main.cpp	/^GLubyte indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
 indices	v0.1/datastruct.h	/^	GLushort *indices;$/;"	m	class:Polygon3D
-indices	v0.1/glwrapper.cpp	/^GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
+indices	v0.1/main.cpp	/^GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
 initGL	example/main.cpp	/^void initGL()$/;"	f
 initGL	legacy/tetphlex.cpp	/^void initGL() {$/;"	f
 initGL	v0.1/glwrapper.cpp	/^void GLWrapper::initGL() {$/;"	f	class:GLWrapper
@@ -12252,6 +12265,7 @@ myDisplayCB	v0.1/glwrapper.h	/^	static void (*myDisplayCB)(void);$/;"	m	class:GL
 myDisplayCB	v0.1/main.cpp	/^void myDisplayCB() {$/;"	f
 myGL	v0.1/main.cpp	/^GLWrapper *myGL;$/;"	v
 myTetris	v0.1/main.cpp	/^}myTetris;$/;"	v	typeref:class:TetrisState
+next	v0.1/datastruct.h	/^	Node *next, *previous;$/;"	m	class:Node
 normals	v0.1/datastruct.h	/^	GLfloat *vertices, *normals, *colors;$/;"	m	class:Polygon3D
 normals1	example/main.cpp	/^GLfloat normals1[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,      \/\/ v0-v1-v2 (front)$/;"	v
 normals2	example/main.cpp	/^GLfloat normals2[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
@@ -12263,10 +12277,13 @@ operator <<	v0.1/datastruct.cpp	/^std::ostream& operator<<(std::ostream& os, con
 pglDrawRangeElements	example/main.cpp	/^PFNGLDRAWRANGEELEMENTSPROC pglDrawRangeElements = 0;$/;"	v
 popMatrix	v0.1/glwrapper.cpp	/^void GLWrapper::popMatrix() {$/;"	f	class:GLWrapper
 position	v0.1/datastruct.h	/^	Vect3D position, rotation, scale;$/;"	m	class:Transformation
+previous	v0.1/datastruct.h	/^	Node *next, *previous;$/;"	m	class:Node
 pushMatrix	v0.1/glwrapper.cpp	/^void GLWrapper::pushMatrix() {$/;"	f	class:GLWrapper
-render	v0.1/gameobjects.h	/^	void render() {$/;"	f	class:GameObject
+render	v0.1/gameobjects.h	/^	virtual void render() {$/;"	f	class:GameObject
 render	v0.1/gameobjects.h	/^	void render(Transformation &trans) {$/;"	f	class:RenderObject
-renderObject	v0.1/gameobjects.h	/^	RenderObject renderObject;$/;"	m	class:GameObject
+render	v0.1/main.cpp	/^	void render() {$/;"	f	class:CubeObject
+render	v0.1/main.cpp	/^	void render() {$/;"	f	class:GameBoard
+renderObjects	v0.1/gameobjects.h	/^	RenderObject *renderObjects;$/;"	m	class:GameObject
 reshape	legacy/tetphlex.cpp	/^void reshape(int w, int h) {$/;"	f
 reshapeCB	example/main.cpp	/^void reshapeCB(int w, int h)$/;"	f
 reshapeCB	v0.1/glwrapper.cpp	/^void GLWrapper::reshapeCB(int w, int h) {$/;"	f	class:GLWrapper
@@ -12283,8 +12300,19 @@ setCamera	legacy/tetphlex.cpp	/^void setCamera(float posX, float posY, float pos
 setCamera	v0.1/glwrapper.cpp	/^void GLWrapper::setCamera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ) {$/;"	f	class:GLWrapper
 setCameraDefaults	v0.1/glwrapper.cpp	/^void GLWrapper::setCameraDefaults() {$/;"	f	class:GLWrapper
 setIdentity	v0.1/datastruct.h	/^	void setIdentity() {$/;"	f	class:Transformation
+setPosition	v0.1/datastruct.h	/^	void setPosition(Vect3D newPos) {$/;"	f	class:Transformation
+setPosition	v0.1/gameobjects.h	/^	virtual void setPosition(Vect3D newPos) {$/;"	f	class:GameObject
+setPosition	v0.1/main.cpp	/^	void setPosition(Vect3D newPos) {$/;"	f	class:CubeObject
+setRotation	v0.1/datastruct.h	/^	void setRotation(float deg, Vect3D newRot) {$/;"	f	class:Transformation
+setRotation	v0.1/gameobjects.h	/^	virtual void setRotation(float deg, Vect3D newRot) {$/;"	f	class:GameObject
+setRotation	v0.1/main.cpp	/^	void setRotation(float deg, Vect3D newRot) {$/;"	f	class:CubeObject
+setScale	v0.1/datastruct.h	/^	void setScale(Vect3D newScale) {$/;"	f	class:Transformation
+setScale	v0.1/gameobjects.h	/^	virtual void setScale(Vect3D newScale) {$/;"	f	class:GameObject
+setScale	v0.1/main.cpp	/^	void setScale(Vect3D newScale) {$/;"	f	class:CubeObject
+setState	v0.1/main.cpp	/^	void setState(int s) {$/;"	f	class:CubeObject
 showInfo	example/main.cpp	/^void showInfo()$/;"	f
 showInfo	v0.1/glwrapper.cpp	/^void GLWrapper::showInfo() {$/;"	f	class:GLWrapper
+state	v0.1/main.cpp	/^	int state; \/\/ TODO convert to enum$/;"	m	class:CubeObject	file:
 stateMachine	v0.1/main.cpp	/^StateMachine stateMachine;$/;"	v
 swapBuffers	v0.1/glwrapper.cpp	/^void GLWrapper::swapBuffers() {$/;"	f	class:GLWrapper
 timerCB	example/main.cpp	/^void timerCB(int millisec)$/;"	f
@@ -12302,6 +12330,9 @@ uint64_t	v0.1/glext.h	/^typedef unsigned __int64 uint64_t;$/;"	t
 uint64_t	v0.1/glext.h	/^typedef unsigned long int uint64_t;$/;"	t
 uint64_t	v0.1/glext.h	/^typedef unsigned long long int uint64_t;$/;"	t
 update	v0.1/datastruct.cpp	/^void StateMachine::update() {$/;"	f	class:StateMachine
+update	v0.1/gameobjects.h	/^	virtual void update() {$/;"	f	class:GameObject
+update	v0.1/main.cpp	/^	void update() {$/;"	f	class:CubeObject
+update	v0.1/main.cpp	/^	void update() {$/;"	f	class:GameBoard
 updateState	v0.1/datastruct.cpp	/^void AbstractState::updateState(StateMachine *sm) { }$/;"	f	class:AbstractState
 updateState	v0.1/main.cpp	/^	void updateState(StateMachine *sm) {$/;"	f	class:TetrisState
 vertices	v0.1/datastruct.h	/^	GLfloat *vertices, *normals, *colors;$/;"	m	class:Polygon3D

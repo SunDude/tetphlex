@@ -32,52 +32,6 @@ int GLWrapper::drawMode = 0;
 int GLWrapper::maxVertices = 0;
 int GLWrapper::maxIndices = 0;
 
-// cube ///////////////////////////////////////////////////////////////////////
-//	  v6----- v5
-//	 /|		 /|
-//	v1------v0|
-//	| |		| |
-//	| |v7---|-|v4
-//	|/		|/
-//	v2------v3
-
-// vertex array for glDrawElements() and glDrawRangeElement() =================
-// Notice that the sizes of these arrays become samller than the arrays for
-// glDrawArrays() because glDrawElements() uses an additional index array to
-// choose designated vertices with the indices. The size of vertex array is now
-// 24 instead of 36, but the index array size is 36, same as the number of
-// vertices required to draw a cube.
-GLfloat cubeVertices[] = { 0.5, 0.5, 0.5,  -0.5, 0.5, 0.5,  -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   // v0,v1,v2,v3 (front)
-	                    0.5, 0.5, 0.5,   0.5,-0.5, 0.5,   0.5,-0.5,-0.5,   0.5, 0.5,-0.5,   // v0,v3,v4,v5 (right)
-	                    0.5, 0.5, 0.5,   0.5, 0.5,-0.5,  -0.5, 0.5,-0.5,  -0.5, 0.5, 0.5,   // v0,v5,v6,v1 (top)
-	                   -0.5, 0.5, 0.5,  -0.5, 0.5,-0.5,  -0.5,-0.5,-0.5,  -0.5,-0.5, 0.5,   // v1,v6,v7,v2 (left)
-	                   -0.5,-0.5,-0.5,   0.5,-0.5,-0.5,   0.5,-0.5, 0.5,  -0.5,-0.5, 0.5,   // v7,v4,v3,v2 (bottom)
-	                    0.5,-0.5,-0.5,  -0.5,-0.5,-0.5,  -0.5, 0.5,-0.5,   0.5, 0.5,-0.5 }; // v4,v7,v6,v5 (back)
-
-// normal array
-GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   // v0,v1,v2,v3 (front)
-	                    1, 0, 0,   1, 0, 0,   1, 0, 0,   1, 0, 0,   // v0,v3,v4,v5 (right)
-	                    0, 1, 0,   0, 1, 0,   0, 1, 0,   0, 1, 0,   // v0,v5,v6,v1 (top)
-	                   -1, 0, 0,  -1, 0, 0,  -1, 0, 0,  -1, 0, 0,   // v1,v6,v7,v2 (left)
-	                    0,-1, 0,   0,-1, 0,   0,-1, 0,   0,-1, 0,   // v7,v4,v3,v2 (bottom)
-	                    0, 0,-1,   0, 0,-1,   0, 0,-1,   0, 0,-1 }; // v4,v7,v6,v5 (back)
-
-// color array
-GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   // v0,v1,v2,v3 (front)
-	                    1, 1, 1,   1, 0, 1,   0, 0, 1,   0, 1, 1,   // v0,v3,v4,v5 (right)
-	                    1, 1, 1,   0, 1, 1,   0, 1, 0,   1, 1, 0,   // v0,v5,v6,v1 (top)
-	                    1, 1, 0,   0, 1, 0,   0, 0, 0,   1, 0, 0,   // v1,v6,v7,v2 (left)
-	                    0, 0, 0,   0, 0, 1,   1, 0, 1,   1, 0, 0,   // v7,v4,v3,v2 (bottom)
-	                    0, 0, 1,   0, 0, 0,   0, 1, 0,   0, 1, 1 }; // v4,v7,v6,v5 (back)
-
-// index array of vertex array for glDrawElements() & glDrawRangeElement()
-GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      // front
-	                   4, 5, 6,   6, 7, 4,      // right
-	                   8, 9,10,  10,11, 8,      // top
-	                  12,13,14,  14,15,12,      // left
-	                  16,17,18,  18,19,16,      // bottom
-	                  20,21,22,  22,23,20 };    // back
-
 // draw cube at bottom-left corner with glDrawElements
 // The main advantage of glDrawElements() over glDrawArray() is that
 // glDrawElements() allows hopping around the vertex array with the associated
@@ -87,7 +41,7 @@ GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      // front
 // Note that you need an additional array (index array) to store how to traverse
 // the vertext data. For a cube, we need 36 entries in the index array.
 ///////////////////////////////////////////////////////////////////////////////
-void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags) {
+/*void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags) {
 	// enble and specify pointers to vertex arrays
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -121,9 +75,9 @@ void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flag
 	glDisableClientState(GL_VERTEX_ARRAY);	// disable vertex arrays
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-}
+}*/
 
-void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {
+/*void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {
 	// enble and specify pointers to vertex arrays
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -160,7 +114,7 @@ void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {
 	glDisableClientState(GL_VERTEX_ARRAY);	// disable vertex arrays
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-}
+}*/
 
 GLWrapper::GLWrapper(int argc, char **argv) {
 	// init global vars

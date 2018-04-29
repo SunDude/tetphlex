@@ -18,6 +18,8 @@ using glm::vec3;
 using glm::vec4;
 
 #define DEBUG true
+#define BOARD_WIDTH 10
+#define BOARD_HEIGHT 22
 
 const float FPS = 60;
 
@@ -42,6 +44,24 @@ void debugOut(T t, Args... args) {
 	}
 };
 
+template<class T>
+class Node {
+private:
+	T *data;
+	Node *next, *previous;
+public:
+	Node(T &d, Node &nxt, Node &prev) : next(nxt), previous(prev) {
+		data = new T(d);
+	}
+
+};
+
+template<class T>
+class List {
+private:
+
+public:
+};
 
 class Vect3D {
 private:
@@ -106,15 +126,39 @@ public:
 		indices = NULL;
 		count = 0;
 	}
+	Polygon3D(GLfloat *vert, GLfloat *norm, GLfloat *color, GLushort *idx, int c) :
+				vertices(vert), normals(norm), colors(color), indices(idx), count(c) {
+
+	}
 };
 
 class Transformation {
 public:
 	Vect3D position, rotation, scale;
-	float degrees;
-	void setIdentity() {
-		position = rotation = scale = Vect3D(0, 0, 0);
+	float degrees; // 360*radians/(2*M_PI)
+
+	Transformation() {
+		this->setIdentity();
+	}
+	Transformation(Vect3D &pos) {
+		position = pos;
+		rotation = Vect3D(0, 0, 0);
+		scale = Vect3D(1, 1, 1);
 		degrees = 0;
+	}
+	void setIdentity() {
+		position = rotation = Vect3D(0, 0, 0);
+		scale = Vect3D(1, 1, 1);
+		degrees = 0;
+	}
+	void setPosition(Vect3D newPos) {
+		position = newPos;
+	}
+	void setRotation(float deg, Vect3D newRot) {
+		degrees = deg, rotation = newRot;
+	}
+	void setScale(Vect3D newScale) {
+		scale = newScale;
 	}
 	mat4 getTransformation() {
 		mat4 transformation = mat4(1.0f);

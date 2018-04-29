@@ -9,6 +9,7 @@
 class RenderObject {
 public:
 	Polygon3D data;
+	// Polygon3D(GLfloat *vert, GLfloat *norm, GLfloat *color, GLushort *idx, int c)
 
 	RenderObject() {
 	}
@@ -20,13 +21,27 @@ public:
 
 class GameObject {
 private:
-	RenderObject renderObject;
+protected:
 	Transformation transformation;
+	RenderObject *renderObjects;
 public:
 	GameObject() {
+		renderObjects = NULL;
 		transformation.setIdentity();
 	}
-	void render() {
-		renderObject.render(transformation);
+	virtual void render() {
+		renderObjects->render(transformation);
+	}
+	virtual void update() {
+
+	}
+	virtual void setPosition(Vect3D newPos) {
+		transformation.setPosition(newPos);
+	}
+	virtual void setRotation(float deg, Vect3D newRot) {
+		transformation.setRotation(deg, newRot);
+	}
+	virtual void setScale(Vect3D newScale) {
+		transformation.setScale(newScale);
 	}
 };

@@ -70,9 +70,9 @@ public:
 	static void toPerspective();
 	// void toOrtho();
 	static void drawString3D(const char *str, float pos[3], float color[4], void *font);
-	static void drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags);
-	static void drawLineSeg3D(Vect3D a, Vect3D b, float thic);
-	static void drawPoly3D(Polygon3D &data, Transformation &tarns) {
+	//static void drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags);
+	//static void drawLineSeg3D(Vect3D a, Vect3D b, float thic);
+	static void drawPoly3D(Polygon3D &data, Transformation &trans) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -83,6 +83,9 @@ public:
 		glPushMatrix();
 
 		// TODO APPLY TRANSFORMATION	//
+		glTranslatef(trans.position.x, trans.position.y, trans.position.z);	// OG 2, 2, 0
+		glRotatef(trans.degrees, trans.rotation.x, trans.rotation.y, trans.rotation.z);
+		glScalef(trans.scale.x, trans.scale.y, trans.scale.z);	//
 
 
 		glDrawElements(GL_TRIANGLES, data.count, GL_UNSIGNED_SHORT, data.indices);
