@@ -18,6 +18,7 @@ PFNGLDRAWRANGEELEMENTSPROC pglDrawRangeElements = 0;
 
 // global variables
 void (*GLWrapper::myDisplayCB)(void) = NULL;
+void (*GLWrapper::myKeyboardCB)(unsigned char, int, int) = NULL;
 
 int GLWrapper::screenWidth = SCREEN_WIDTH;
 int GLWrapper::screenHeight = SCREEN_HEIGHT;
@@ -316,6 +317,11 @@ int last = -1;
 void GLWrapper::addDisplayCB(void (*func)(void)) {
 	myDisplayCB = func;
 }
+
+void GLWrapper::addKeyboardCB(void (*func)(unsigned char, int, int)) {
+	myKeyboardCB = func;
+}
+
 void GLWrapper::displayCB() {
 	// debugOut("\nin GLWrapper::displayCB()\n");
 	(*myDisplayCB)();
@@ -336,6 +342,8 @@ void GLWrapper::timerCB(int millisec) {
 
 
 void GLWrapper::keyboardCB(unsigned char key, int x, int y) {
+	(*myKeyboardCB)(key, x, y);
+	/*
 	switch(key)	{
 		case 27: // ESCAPE
 			clearSharedMem();
@@ -367,7 +375,7 @@ void GLWrapper::keyboardCB(unsigned char key, int x, int y) {
 
 		default:
 			;
-	}
+	}*/
 }
 
 

@@ -65,6 +65,13 @@ void StateMachine::update() {
 	}
 }
 
+void StateMachine::keyPress(unsigned char key, int x, int y) {
+	if (currentState) {
+		currentState->keyPress(key, x, y);
+	}
+}
+
 void AbstractState::enterState(StateMachine *sm) { }
 void AbstractState::updateState(StateMachine *sm) { }
+void AbstractState::keyPress(unsigned char key, int x, int y) { }
 void AbstractState::exitState() { }

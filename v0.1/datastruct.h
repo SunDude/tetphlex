@@ -23,10 +23,11 @@ using glm::vec4;
 #define BOARD_HEIGHT 22
 #define BOARD_HEIGHTMEM (BOARD_HEIGHT*2 + 5)
 #define INVIS_ROWS 2
+#define NUM_ROTATIONS 4
 // last 2 rows of board height is invisible
 
 const float FPS = 5; // LOGIC STEPS PER SECOND
-const int fadeDelay = 0.5f * FPS;
+const int fadeDelay = 2; // 2 logic frames before disappearing
 
 template<typename T>
 T min(T a, T b) {
@@ -92,6 +93,7 @@ public:
 	void changeState(AbstractState *newState);
 	AbstractState* getCurrentState();
 	void update();
+	void keyPress(unsigned char key, int x, int y);
 };
 
 class AbstractState {
@@ -99,6 +101,7 @@ private:
 public:
 	virtual void enterState(StateMachine *sm);
 	virtual void updateState(StateMachine *sm);
+	virtual void keyPress(unsigned char key, int x, int y);
 	virtual void exitState();
 };
 

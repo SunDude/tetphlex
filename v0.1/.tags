@@ -10,9 +10,9 @@ AbstractState	datastruct.h	/^class AbstractState {$/;"	c
 BOARD_HEIGHT	datastruct.h	23;"	d
 BOARD_HEIGHTMEM	datastruct.h	24;"	d
 BOARD_WIDTH	datastruct.h	22;"	d
-Blocks	main.cpp	/^	Blocks() {$/;"	f	class:Blocks
-Blocks	main.cpp	/^	Blocks(vector<vector<bool>> g) {$/;"	f	class:Blocks
-Blocks	main.cpp	/^class Blocks {$/;"	c	file:
+Blocks	gameobjects.h	/^	Blocks() {$/;"	f	class:Blocks
+Blocks	gameobjects.h	/^	Blocks(vector<vector<bool>> g) {$/;"	f	class:Blocks
+Blocks	gameobjects.h	/^class Blocks {$/;"	c
 CAMERA_DISTANCE	glwrapper.h	/^const GLfloat CAMERA_DISTANCE = 15.0f;$/;"	v
 DEBUG	datastruct.h	21;"	d
 FPS	datastruct.h	/^const float FPS = 5; \/\/ LOGIC STEPS PER SECOND$/;"	v
@@ -4020,12 +4020,13 @@ GLsync	glext.h	/^typedef struct __GLsync *GLsync;$/;"	t	typeref:struct:__GLsync
 GLuint64	glext.h	/^typedef uint64_t GLuint64;$/;"	t
 GLuint64EXT	glext.h	/^typedef uint64_t GLuint64EXT;$/;"	t
 GLvdpauSurfaceNV	glext.h	/^typedef GLintptr GLvdpauSurfaceNV;$/;"	t
-GameBoard	main.cpp	/^	GameBoard() {$/;"	f	class:GameBoard
+GameBoard	main.cpp	/^	GameBoard() : block(cubes) {$/;"	f	class:GameBoard
 GameBoard	main.cpp	/^class GameBoard {$/;"	c	file:
 GameObject	gameobjects.h	/^	GameObject() {$/;"	f	class:GameObject
 GameObject	gameobjects.h	/^class GameObject {$/;"	c
-Grid	main.cpp	/^typedef vector<vector<bool>> Grid;$/;"	t	file:
+Grid	gameobjects.h	/^typedef vector<vector<bool>> Grid;$/;"	t
 INVIS_ROWS	datastruct.h	25;"	d
+NUM_ROTATIONS	datastruct.h	26;"	d
 PFNGLACTIVEPROGRAMEXTPROC	glext.h	/^typedef void (APIENTRYP PFNGLACTIVEPROGRAMEXTPROC) (GLuint program);$/;"	t
 PFNGLACTIVESHADERPROGRAMPROC	glext.h	/^typedef void (APIENTRYP PFNGLACTIVESHADERPROGRAMPROC) (GLuint pipeline, GLuint program);$/;"	t
 PFNGLACTIVESTENCILFACEEXTPROC	glext.h	/^typedef void (APIENTRYP PFNGLACTIVESTENCILFACEEXTPROC) (GLenum face);$/;"	t
@@ -6050,10 +6051,10 @@ PFNGLWRITEMASKEXTPROC	glext.h	/^typedef void (APIENTRYP PFNGLWRITEMASKEXTPROC) (
 Polygon3D	datastruct.h	/^	Polygon3D() {$/;"	f	class:Polygon3D
 Polygon3D	datastruct.h	/^	Polygon3D(GLfloat *vert, GLfloat *norm, GLfloat *color, GLushort *idx, int c) :$/;"	f	class:Polygon3D
 Polygon3D	datastruct.h	/^class Polygon3D {$/;"	c
-QuadBlock	main.cpp	/^	QuadBlock() {$/;"	f	class:QuadBlock
-QuadBlock	main.cpp	/^class QuadBlock {$/;"	c	file:
-QuadObject	main.cpp	/^	QuadObject() {$/;"	f	class:QuadObject
-QuadObject	main.cpp	/^class QuadObject: private GameObject {$/;"	c	file:
+QuadBlock	gameobjects.h	/^	QuadBlock(QuadObject cubes[][BOARD_HEIGHTMEM]) {$/;"	f	class:QuadBlock
+QuadBlock	gameobjects.h	/^class QuadBlock {$/;"	c
+QuadObject	gameobjects.h	/^	QuadObject() {$/;"	f	class:QuadObject
+QuadObject	gameobjects.h	/^class QuadObject: private GameObject {$/;"	c
 RenderObject	gameobjects.h	/^	RenderObject() {$/;"	f	class:RenderObject
 RenderObject	gameobjects.h	/^class RenderObject {$/;"	c
 SCREEN_HEIGHT	glwrapper.h	/^const int	SCREEN_HEIGHT	= 900;$/;"	v
@@ -6064,7 +6065,7 @@ TEXT_HEIGHT	glwrapper.h	/^const int	TEXT_HEIGHT		= 13;$/;"	v
 TEXT_WIDTH	glwrapper.h	/^const int	TEXT_WIDTH		= 8;$/;"	v
 TetrisState	main.cpp	/^	TetrisState() {$/;"	f	class:TetrisState
 TetrisState	main.cpp	/^class TetrisState: public AbstractState {$/;"	c	file:
-TileSet	main.cpp	/^Blocks TileSet[][4] = {$/;"	v
+TileSet	gameobjects.h	/^static Blocks TileSet[][4] = {$/;"	v
 Transformation	datastruct.h	/^	Transformation() {$/;"	f	class:Transformation
 Transformation	datastruct.h	/^	Transformation(Vect3D &pos) {$/;"	f	class:Transformation
 Transformation	datastruct.h	/^class Transformation {$/;"	c
@@ -6074,7 +6075,9 @@ Vect3D	datastruct.h	/^class Vect3D {$/;"	c
 WIN32_LEAN_AND_MEAN	glext.h	38;"	d
 __glext_h_	glext.h	2;"	d
 addDisplayCB	glwrapper.cpp	/^void GLWrapper::addDisplayCB(void (*func)(void)) {$/;"	f	class:GLWrapper
+addKeyboardCB	glwrapper.cpp	/^void GLWrapper::addKeyboardCB(void (*func)(unsigned char, int, int)) {$/;"	f	class:GLWrapper
 block	main.cpp	/^	QuadBlock block;$/;"	m	class:GameBoard	file:
+board	gameobjects.h	/^	QuadObject (*board)[BOARD_HEIGHTMEM];$/;"	m	class:QuadBlock
 boardData	glwrapper.cpp	/^int boardData[10][22];$/;"	v
 cameraAngleX	glwrapper.cpp	/^GLfloat GLWrapper::cameraAngleX = 0.0f;$/;"	m	class:GLWrapper	file:
 cameraAngleX	glwrapper.h	/^	static GLfloat cameraAngleX;$/;"	m	class:GLWrapper
@@ -6088,9 +6091,10 @@ clearSharedMem	glwrapper.cpp	/^void GLWrapper::clearSharedMem() {$/;"	f	class:GL
 colors	datastruct.h	/^	GLfloat *vertices, *normals, *colors;$/;"	m	class:Polygon3D
 count	datastruct.h	/^	int count;$/;"	m	class:Polygon3D
 cross	datastruct.cpp	/^Vect3D Vect3D::cross(const Vect3D &u, const Vect3D &v) {$/;"	f	class:Vect3D
-cubeColors	main.cpp	/^GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
-cubeCount	main.cpp	/^const int cubeCount = 36;$/;"	v
-cubeNormals	main.cpp	/^GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeColors	gameobjects.h	/^static GLfloat cubeColors[]   = { 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeCount	gameobjects.h	/^const int cubeCount = 36;$/;"	v
+cubeNormals	gameobjects.h	/^static GLfloat cubeNormals[]  = { 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,   \/\/ v0,v1,v2,v3 (front)$/;"	v
+cubeVertices	gameobjects.h	/^static GLfloat cubeVertices[] = { 0.5, 0.5, 0.5,  -0.5, 0.5, 0.5,  -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   \/\/ v0,v1,v2,v3 (front)$/;"	v
 cubes	main.cpp	/^	QuadObject cubes[BOARD_WIDTH][BOARD_HEIGHTMEM];$/;"	m	class:GameBoard	file:
 currentState	datastruct.h	/^	AbstractState *currentState; \/\/ change to stack$/;"	m	class:StateMachine
 data	gameobjects.h	/^	Polygon3D data;$/;"	m	class:RenderObject
@@ -6104,38 +6108,42 @@ drawMode	glwrapper.h	/^	static int drawMode;$/;"	m	class:GLWrapper
 drawPoly3D	glwrapper.h	/^	static void drawPoly3D(Polygon3D &data, Transformation &trans) {$/;"	f	class:GLWrapper
 drawString	glwrapper.cpp	/^void drawString(const char *str, int x, int y, float color[4], void *font) {$/;"	f
 drawString3D	glwrapper.cpp	/^void GLWrapper::drawString3D(const char *str, float pos[3], float color[4], void *font) {$/;"	f	class:GLWrapper
+dropBlock	gameobjects.h	/^	void dropBlock() {$/;"	f	class:QuadBlock
+dropBlock	main.cpp	/^	void dropBlock() {$/;"	f	class:GameBoard
 enterState	datastruct.cpp	/^void AbstractState::enterState(StateMachine *sm) { }$/;"	f	class:AbstractState
 enterState	main.cpp	/^	void enterState(StateMachine *sm) {$/;"	f	class:TetrisState
 exitState	datastruct.cpp	/^void AbstractState::exitState() { }$/;"	f	class:AbstractState
 exitState	main.cpp	/^	void exitState() {$/;"	f	class:TetrisState
-fadeDelay	datastruct.h	/^const int fadeDelay = 0.5f * FPS;$/;"	v
+fadeDelay	datastruct.h	/^const int fadeDelay = 2; \/\/ 2 logic frames before disappearing$/;"	v
 font	glwrapper.h	/^	static constexpr void *font = GLUT_BITMAP_8_BY_13;$/;"	m	class:GLWrapper
 gameBoard	main.cpp	/^	GameBoard gameBoard;$/;"	m	class:TetrisState	file:
 getCurrentState	datastruct.cpp	/^AbstractState* StateMachine::getCurrentState() {$/;"	f	class:StateMachine
 getLineSeg	main.cpp	/^	QuadObject getLineSeg(Vect3D a, Vect3D b, float thic) {$/;"	f	class:GameBoard
-getState	main.cpp	/^	int getState() {$/;"	f	class:QuadBlock
-getState	main.cpp	/^	int getState() {$/;"	f	class:QuadObject
+getState	gameobjects.h	/^	int getState() {$/;"	f	class:QuadBlock
+getState	gameobjects.h	/^	int getState() {$/;"	f	class:QuadObject
 getTransformation	datastruct.h	/^	mat4 getTransformation() {$/;"	f	class:Transformation
 glDrawRangeElements	glwrapper.cpp	16;"	d	file:
-grid	main.cpp	/^	Grid grid;$/;"	m	class:Blocks	file:
+grid	gameobjects.h	/^	Grid grid;$/;"	m	class:Blocks
 indices	datastruct.h	/^	GLushort *indices;$/;"	m	class:Polygon3D
-indices	main.cpp	/^GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
+indices	gameobjects.h	/^static GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      \/\/ front$/;"	v
 initGL	glwrapper.cpp	/^void GLWrapper::initGL() {$/;"	f	class:GLWrapper
 initGLUT	glwrapper.cpp	/^int GLWrapper::initGLUT(int argc, char **argv) {$/;"	f	class:GLWrapper
 initLights	glwrapper.cpp	/^void GLWrapper::initLights() {$/;"	f	class:GLWrapper
 initSharedMem	glwrapper.cpp	/^bool GLWrapper::initSharedMem() {$/;"	f	class:GLWrapper
-input	main.cpp	/^	void input() {$/;"	f	class:GameBoard
 int32_t	glext.h	/^typedef __int32 int32_t;$/;"	t
 int32_t	glext.h	/^typedef long int int32_t;$/;"	t
 int64_t	glext.h	/^typedef __int64 int64_t;$/;"	t
 int64_t	glext.h	/^typedef long int int64_t;$/;"	t
 int64_t	glext.h	/^typedef long long int int64_t;$/;"	t
+keyPress	datastruct.cpp	/^void AbstractState::keyPress(unsigned char key, int x, int y) { }$/;"	f	class:AbstractState
+keyPress	datastruct.cpp	/^void StateMachine::keyPress(unsigned char key, int x, int y) {$/;"	f	class:StateMachine
+keyPress	main.cpp	/^	void keyPress(unsigned char key, int x, int y) {$/;"	f	class:TetrisState
 keyboardCB	glwrapper.cpp	/^void GLWrapper::keyboardCB(unsigned char key, int x, int y) {$/;"	f	class:GLWrapper
 last	glwrapper.cpp	/^int last = -1;$/;"	v
 lastUpdateTime	main.cpp	/^	int lastUpdateTime;$/;"	m	class:TetrisState	file:
 magnitude	datastruct.cpp	/^float Vect3D::magnitude() {$/;"	f	class:Vect3D
 main	main.cpp	/^int main(int argc, char **argv) {$/;"	f
-makeNewBlock	main.cpp	/^	void makeNewBlock() {$/;"	f	class:QuadBlock
+makeNewBlock	gameobjects.h	/^	void makeNewBlock() {$/;"	f	class:QuadBlock
 maxIndices	glwrapper.cpp	/^int GLWrapper::maxIndices = 0;$/;"	m	class:GLWrapper	file:
 maxIndices	glwrapper.h	/^	static int maxIndices;$/;"	m	class:GLWrapper
 maxVertices	glwrapper.cpp	/^int GLWrapper::maxVertices = 0;$/;"	m	class:GLWrapper	file:
@@ -6153,14 +6161,19 @@ mouseX	glwrapper.cpp	/^GLfloat GLWrapper::mouseX = 0, GLWrapper::mouseY = 0;$/;"
 mouseX	glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	m	class:GLWrapper
 mouseY	glwrapper.cpp	/^GLfloat GLWrapper::mouseX = 0, GLWrapper::mouseY = 0;$/;"	m	class:GLWrapper	file:
 mouseY	glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	m	class:GLWrapper
+moveBlock	gameobjects.h	/^	void moveBlock(int dx) {$/;"	f	class:QuadBlock
+moveBlock	main.cpp	/^	void moveBlock(int dx) {$/;"	f	class:GameBoard
 myDisplayCB	glwrapper.cpp	/^void (*GLWrapper::myDisplayCB)(void) = NULL;$/;"	v
 myDisplayCB	glwrapper.h	/^	static void (*myDisplayCB)(void);$/;"	m	class:GLWrapper
 myDisplayCB	main.cpp	/^void myDisplayCB() {$/;"	f
 myGL	main.cpp	/^GLWrapper *myGL;$/;"	v
+myKeyboardCB	glwrapper.cpp	/^void (*GLWrapper::myKeyboardCB)(unsigned char, int, int) = NULL;$/;"	v
+myKeyboardCB	glwrapper.h	/^	static void (*myKeyboardCB)(unsigned char, int, int);$/;"	m	class:GLWrapper
+myKeyboardCB	main.cpp	/^void myKeyboardCB(unsigned char key, int x, int y) {$/;"	f
 myTetris	main.cpp	/^}myTetris;$/;"	v	typeref:class:TetrisState
 normals	datastruct.h	/^	GLfloat *vertices, *normals, *colors;$/;"	m	class:Polygon3D
-offx	main.cpp	/^	int offx, offy;$/;"	m	class:QuadBlock	file:
-offy	main.cpp	/^	int offx, offy;$/;"	m	class:QuadBlock	file:
+offx	gameobjects.h	/^	int offx, offy;$/;"	m	class:QuadBlock
+offy	gameobjects.h	/^	int offx, offy;$/;"	m	class:QuadBlock
 operator *	datastruct.cpp	/^Vect3D Vect3D::operator*(const float &s) {$/;"	f	class:Vect3D
 operator +	datastruct.cpp	/^Vect3D Vect3D::operator+(const Vect3D &v) {$/;"	f	class:Vect3D
 operator -	datastruct.cpp	/^Vect3D Vect3D::operator-(const Vect3D &v) {$/;"	f	class:Vect3D
@@ -6170,13 +6183,15 @@ popMatrix	glwrapper.cpp	/^void GLWrapper::popMatrix() {$/;"	f	class:GLWrapper
 position	datastruct.h	/^	Vect3D position, rotation, scale;$/;"	m	class:Transformation
 pushMatrix	glwrapper.cpp	/^void GLWrapper::pushMatrix() {$/;"	f	class:GLWrapper
 render	gameobjects.h	/^	virtual void render() {$/;"	f	class:GameObject
+render	gameobjects.h	/^	void render() {$/;"	f	class:QuadBlock
+render	gameobjects.h	/^	void render() {$/;"	f	class:QuadObject
 render	gameobjects.h	/^	void render(Transformation &trans) {$/;"	f	class:RenderObject
 render	main.cpp	/^	void render() {$/;"	f	class:GameBoard
-render	main.cpp	/^	void render() {$/;"	f	class:QuadBlock
-render	main.cpp	/^	void render() {$/;"	f	class:QuadObject
 renderObjects	gameobjects.h	/^	RenderObject *renderObjects;$/;"	m	class:GameObject
 reshapeCB	glwrapper.cpp	/^void GLWrapper::reshapeCB(int w, int h) {$/;"	f	class:GLWrapper
-rot	main.cpp	/^	int type, rot;$/;"	m	class:QuadBlock	file:
+rot	gameobjects.h	/^	int type, rot;$/;"	m	class:QuadBlock
+rotateBlock	gameobjects.h	/^	void rotateBlock(int dir) {$/;"	f	class:QuadBlock
+rotateBlock	main.cpp	/^	void rotateBlock(int dir) {$/;"	f	class:GameBoard
 rotation	datastruct.h	/^	Vect3D position, rotation, scale;$/;"	m	class:Transformation
 scale	datastruct.h	/^	Vect3D position, rotation, scale;$/;"	m	class:Transformation
 screenHeight	glwrapper.cpp	/^int GLWrapper::screenHeight = SCREEN_HEIGHT;$/;"	m	class:GLWrapper	file:
@@ -6188,36 +6203,37 @@ setCameraDefaults	glwrapper.cpp	/^void GLWrapper::setCameraDefaults() {$/;"	f	cl
 setIdentity	datastruct.h	/^	void setIdentity() {$/;"	f	class:Transformation
 setPosition	datastruct.h	/^	void setPosition(Vect3D newPos) {$/;"	f	class:Transformation
 setPosition	gameobjects.h	/^	virtual void setPosition(Vect3D newPos) {$/;"	f	class:GameObject
-setPosition	main.cpp	/^	void setPosition(Vect3D newPos) {$/;"	f	class:QuadObject
+setPosition	gameobjects.h	/^	void setPosition(Vect3D newPos) {$/;"	f	class:QuadObject
 setRotation	datastruct.h	/^	void setRotation(float deg, Vect3D newRot) {$/;"	f	class:Transformation
 setRotation	gameobjects.h	/^	virtual void setRotation(float deg, Vect3D newRot) {$/;"	f	class:GameObject
-setRotation	main.cpp	/^	void setRotation(float deg, Vect3D newRot) {$/;"	f	class:QuadObject
+setRotation	gameobjects.h	/^	void setRotation(float deg, Vect3D newRot) {$/;"	f	class:QuadObject
 setScale	datastruct.h	/^	void setScale(Vect3D newScale) {$/;"	f	class:Transformation
 setScale	gameobjects.h	/^	virtual void setScale(Vect3D newScale) {$/;"	f	class:GameObject
-setScale	main.cpp	/^	void setScale(Vect3D newScale) {$/;"	f	class:QuadObject
-setState	main.cpp	/^	void setState(int s) {$/;"	f	class:QuadBlock
-setState	main.cpp	/^	void setState(int s) {$/;"	f	class:QuadObject
+setScale	gameobjects.h	/^	void setScale(Vect3D newScale) {$/;"	f	class:QuadObject
+setState	gameobjects.h	/^	void setState(int s) {$/;"	f	class:QuadBlock
+setState	gameobjects.h	/^	void setState(int s) {$/;"	f	class:QuadObject
 showInfo	glwrapper.cpp	/^void GLWrapper::showInfo() {$/;"	f	class:GLWrapper
-state	main.cpp	/^	int state; \/\/ TODO convert to enum$/;"	m	class:QuadBlock	file:
-state	main.cpp	/^	int state; \/\/ TODO convert to enum$/;"	m	class:QuadObject	file:
-stateMachine	main.cpp	/^StateMachine stateMachine;$/;"	v
+state	gameobjects.h	/^	int state; \/\/ TODO convert to enum$/;"	m	class:QuadBlock
+state	gameobjects.h	/^	int state; \/\/ TODO convert to enum$/;"	m	class:QuadObject
 swapBuffers	glwrapper.cpp	/^void GLWrapper::swapBuffers() {$/;"	f	class:GLWrapper
+testPosD	gameobjects.h	/^	bool testPosD(int dx, int dy, int r=-1) {$/;"	f	class:QuadBlock
 timerCB	glwrapper.cpp	/^void GLWrapper::timerCB(int millisec) {$/;"	f	class:GLWrapper
 toPerspective	glwrapper.cpp	/^void GLWrapper::toPerspective() {$/;"	f	class:GLWrapper
 toVec3	datastruct.h	/^		vec3 toVec3() {$/;"	f	class:Vect3D
 transformation	gameobjects.h	/^	Transformation transformation;$/;"	m	class:GameObject
-type	main.cpp	/^	int type, rot;$/;"	m	class:QuadBlock	file:
+type	gameobjects.h	/^	int type, rot;$/;"	m	class:QuadBlock
 uint64_t	glext.h	/^typedef unsigned __int64 uint64_t;$/;"	t
 uint64_t	glext.h	/^typedef unsigned long int uint64_t;$/;"	t
 uint64_t	glext.h	/^typedef unsigned long long int uint64_t;$/;"	t
 update	datastruct.cpp	/^void StateMachine::update() {$/;"	f	class:StateMachine
 update	gameobjects.h	/^	virtual void update() {$/;"	f	class:GameObject
+update	gameobjects.h	/^	void update() {$/;"	f	class:QuadBlock
+update	gameobjects.h	/^	void update() {$/;"	f	class:QuadObject
 update	main.cpp	/^	void update() {$/;"	f	class:GameBoard
-update	main.cpp	/^	void update() {$/;"	f	class:QuadObject
-update	main.cpp	/^	void update(QuadObject cubes[][BOARD_HEIGHTMEM]) {$/;"	f	class:QuadBlock
 updateState	datastruct.cpp	/^void AbstractState::updateState(StateMachine *sm) { }$/;"	f	class:AbstractState
 updateState	main.cpp	/^	void updateState(StateMachine *sm) {$/;"	f	class:TetrisState
 vertices	datastruct.h	/^	GLfloat *vertices, *normals, *colors;$/;"	m	class:Polygon3D
+wallKickDelta	gameobjects.h	/^int wallKickDelta[2][2][NUM_ROTATIONS][5][2] = {$/;"	v
 x	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D
 y	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D
 z	datastruct.h	/^		float x, y, z;$/;"	m	class:Vect3D

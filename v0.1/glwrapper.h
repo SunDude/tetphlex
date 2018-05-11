@@ -31,6 +31,7 @@ private:
 
 	// global variables
 	static void (*myDisplayCB)(void);
+	static void (*myKeyboardCB)(unsigned char, int, int);
 
 	static constexpr void *font = GLUT_BITMAP_8_BY_13;
 	static int screenWidth;
@@ -57,6 +58,7 @@ public:
 
 	// call back functions
 	static void addDisplayCB(void (*func)(void));
+	static void addKeyboardCB(void (*func)(unsigned char, int, int));
 	static void displayCB();
 	static void reshapeCB(int w, int h);
 	static void timerCB(int millisec);
