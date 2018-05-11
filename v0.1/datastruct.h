@@ -11,6 +11,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <cassert>
 
 using std::clog;
 using glm::mat4;
@@ -20,8 +21,12 @@ using glm::vec4;
 #define DEBUG true
 #define BOARD_WIDTH 10
 #define BOARD_HEIGHT 22
+#define BOARD_HEIGHTMEM (BOARD_HEIGHT*2 + 5)
+#define INVIS_ROWS 2
+// last 2 rows of board height is invisible
 
-const float FPS = 60;
+const float FPS = 5; // LOGIC STEPS PER SECOND
+const int fadeDelay = 0.5f * FPS;
 
 template<typename T>
 T min(T a, T b) {
@@ -42,25 +47,6 @@ void debugOut(T t, Args... args) {
 		clog<< t;
 		debugOut(args...);
 	}
-};
-
-template<class T>
-class Node {
-private:
-	T *data;
-	Node *next, *previous;
-public:
-	Node(T &d, Node &nxt, Node &prev) : next(nxt), previous(prev) {
-		data = new T(d);
-	}
-
-};
-
-template<class T>
-class List {
-private:
-
-public:
 };
 
 class Vect3D {

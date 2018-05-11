@@ -6,6 +6,11 @@
 
 #include <glm/glm.hpp>
 
+#include <cmath>
+#include <vector>
+
+using std::vector;
+
 #include "datastruct.h"
 #include "glwrapper.h"
 #include "statemanager.h"
@@ -58,16 +63,16 @@ GLushort indices[]  = { 0, 1, 2,   2, 3, 0,      // front
 	                  16,17,18,  18,19,16,      // bottom
 	                  20,21,22,  22,23,20 };    // back
 
-int cubeCount = 36;
+const int cubeCount = 36;
 
 StateMachine stateMachine;
 GLWrapper *myGL;
 
-class CubeObject: private GameObject {
+class QuadObject: private GameObject {
 private:
 	int state; // TODO convert to enum
 public:
-	CubeObject() {
+	QuadObject() {
 		renderObjects = new RenderObject();
 		renderObjects->data = Polygon3D(cubeVertices, cubeNormals, cubeColors, indices, cubeCount);;
 		setScale(Vect3D(0.8f, 0.8f, 0.8f));
@@ -83,6 +88,9 @@ public:
 	void setState(int s) {
 		state = s;
 	}
+	int getState() {
+		return state;
+	}
 	void setPosition(Vect3D newPos) {
 		GameObject::setPosition(newPos);
 	}
@@ -94,9 +102,224 @@ public:
 	}
 };
 
+typedef vector<vector<bool>> Grid;
+
+class Blocks {
+public:
+	Grid grid;
+	Blocks() {
+	}
+	Blocks(vector<vector<bool>> g) {
+		grid = g;
+	}
+};
+Blocks TileSet[][4] = {
+	{
+		Blocks({{0, 0, 1, 0},
+				{0, 0, 1, 0},
+				{0, 0, 1, 0},
+				{0, 0, 1, 0}}),
+
+		Blocks({{0, 0, 0, 0},
+				{0, 0, 0, 0},
+				{1, 1, 1, 1},
+				{0, 0, 0, 0}}),
+
+		Blocks({{0, 1, 0, 0},
+				{0, 1, 0, 0},
+				{0, 1, 0, 0},
+				{0, 1, 0, 0}}),
+
+		Blocks({{0, 0, 0, 0},
+				{1, 1, 1, 1},
+				{0, 0, 0, 0},
+				{0, 0, 0, 0}})
+	},
+	{
+		Blocks({{0, 1, 1},
+				{0, 1, 0},
+				{0, 1, 0}}),
+
+		Blocks({{0, 0, 0},
+				{1, 1, 1},
+				{0, 0, 1}}),
+
+		Blocks({{0, 1, 0},
+				{0, 1, 0},
+				{1, 1, 0}}),
+
+		Blocks({{1, 0, 0},
+				{1, 1, 1},
+				{0, 0, 0}}),
+	},
+	{
+		Blocks({{0, 1, 0},
+				{0, 1, 0},
+				{0, 1, 1}}),
+
+		Blocks({{0, 0, 0},
+				{1, 1, 1},
+				{1, 0, 0}}),
+
+		Blocks({{1, 1, 0},
+				{0, 1, 0},
+				{0, 1, 0}}),
+
+		Blocks({{0, 0, 1},
+				{1, 1, 1},
+				{0, 0, 0}}),
+	},
+	{
+		Blocks({{0, 0, 0},
+				{0, 1, 1},
+				{0, 1, 1},
+				{0, 0, 0}}),
+
+		Blocks({{0, 0, 0},
+				{0, 1, 1},
+				{0, 1, 1},
+				{0, 0, 0}}),
+
+		Blocks({{0, 0, 0},
+				{0, 1, 1},
+				{0, 1, 1},
+				{0, 0, 0}}),
+
+		Blocks({{0, 0, 0},
+				{0, 1, 1},
+				{0, 1, 1},
+				{0, 0, 0}}),
+	},
+	{
+		Blocks({{0, 1, 0},
+				{0, 1, 1},
+				{0, 0, 1}}),
+
+		Blocks({{0, 0, 0},
+				{0, 1, 1},
+				{1, 1, 0}}),
+
+		Blocks({{1, 0, 0},
+				{1, 1, 0},
+				{0, 1, 0}}),
+
+		Blocks({{0, 1, 1},
+				{1, 1, 0},
+				{0, 0, 0}}),
+	},
+	{
+		Blocks({{0, 1, 0},
+				{0, 1, 1},
+				{0, 1, 0}}),
+
+		Blocks({{0, 0, 0},
+				{1, 1, 1},
+				{0, 1, 0}}),
+
+		Blocks({{0, 1, 0},
+				{1, 1, 0},
+				{0, 1, 0}}),
+
+		Blocks({{0, 1, 0},
+				{1, 1, 1},
+				{0, 0, 0}}),
+	},
+	{
+		Blocks({{0, 0, 1},
+				{0, 1, 1},
+				{0, 1, 0}}),
+
+		Blocks({{0, 0, 0},
+				{1, 1, 0},
+				{0, 1, 1}}),
+
+		Blocks({{0, 1, 0},
+				{1, 1, 0},
+				{1, 0, 0}}),
+
+		Blocks({{1, 1, 0},
+				{0, 1, 1},
+				{0, 0, 0}}),
+	}
+};
+
+class QuadBlock {
+private:
+	int type, rot;
+	int offx, offy;
+	int state; // TODO convert to enum
+public:
+	void makeNewBlock() {
+		type = rand()%7;
+		rot = 0;
+		offx = BOARD_WIDTH/2 - 2; // centre block slightly
+		offy = BOARD_HEIGHT - 2; // spawn further on board rather than off
+	}
+	QuadBlock() {
+		makeNewBlock();
+		state = 1;
+	}
+	void render() {
+		if (state>0) {
+			// render all blocks
+			QuadObject renderAid;
+			renderAid.setState(1);
+			Grid &myGrid = TileSet[type][rot].grid;
+			for (int w = 0; w<myGrid.size(); w++) {
+				for (int h = 0; h<myGrid[w].size(); h++) {
+					if (myGrid[w][h]) {
+						renderAid.setPosition(Vect3D(offx + w, offy + h, 0));
+						if (offy+h < BOARD_HEIGHT-INVIS_ROWS) { // not off grid
+							renderAid.render();
+						}
+					}
+				}
+			}
+		}
+	}
+	void update(QuadObject cubes[][BOARD_HEIGHTMEM]) {
+		debugOut("curpos: (", offx, ", ", offy, ")\n");
+		bool bottom = false;
+		Grid &myGrid = TileSet[type][rot].grid;
+		for (int w = 0; w<myGrid.size(); w++) {
+			for (int h = 0; h<myGrid[w].size(); h++) {
+				if (myGrid[w][h]) {
+					int chkx = w + offx, chky = h + offy - 1;
+					if (chky < 0 || cubes[chkx][chky].getState()) {
+						bottom = true;
+					}
+				}
+			}
+		}
+		if (bottom) {
+			for (int w = 0; w<myGrid.size(); w++) {
+				for (int h = 0; h<myGrid[w].size(); h++) {
+					if (myGrid[w][h]) {
+						if (h+offy < BOARD_HEIGHT-INVIS_ROWS) { // not off screen
+							cubes[w+offx][h+offy].setState(1);
+						}
+					}
+				}
+			}
+			// reset to new block
+			makeNewBlock();
+		}
+		else { // can move down
+			offy--;
+		}
+	}
+	void setState(int s) {
+		state = s;
+	}
+	int getState() {
+		return state;
+	}
+};
+
 class GameBoard {
 private:
-	CubeObject cubes[BOARD_WIDTH][BOARD_HEIGHT];
+	QuadObject cubes[BOARD_WIDTH][BOARD_HEIGHTMEM];
+	QuadBlock block;
 public:
 	GameBoard() {
 		// for each CubeObject in cubes
@@ -107,7 +330,34 @@ public:
 				cube.setState(0);
 			}
 		}
-		cubes[0][0].setState(1);
+		// cubes[0][0].setState(1);
+	}
+	//
+	QuadObject getLineSeg(Vect3D a, Vect3D b, float thic) {
+		QuadObject gridAid; // temporary object to set up and return
+		gridAid.setState(1);
+		// ===== find rotation needed to make line =====
+		Vect3D u(0, 1, 0);
+		Vect3D v = b-a;
+		// Quad3D will be 0, 1, 0
+		Vect3D n = Vect3D::cross(u, v);
+
+		float tripleProduct = Vect3D::dot(u, Vect3D::cross(v, n));
+		float rotRads = std::acos(Vect3D::dot(u, v)/(u.magnitude()*v.magnitude()));
+		if (tripleProduct < 0) rotRads = 2*M_PI - rotRads;
+		float rotDegs = 360*rotRads/(2*M_PI);
+		// glRotatef(rotDegs, n);
+		gridAid.setRotation(rotDegs, n);
+
+		// ===== find mid point =====
+		Vect3D mid = (a+b)/2;
+		// glTranslatef(mid.x, mid.y, mid.z);
+		gridAid.setPosition(mid);
+
+		// ===== scale quadrilateral to be line linethickness =====
+		// glScalef(thic, v.magnitude(), thic);
+		gridAid.setScale(Vect3D(thic, v.magnitude(), thic));
+		return gridAid;
 	}
 	void render() {
 		// for each CubeObject in cubes
@@ -116,45 +366,52 @@ public:
 				cube.render();
 			}
 		}
+		// draw controlled block
+		block.render();
+
+		// draw grid
+		float linethickness = 0.05f;
+		float lowx = -0.5f;
+		float highx = BOARD_WIDTH-0.5f;
+		float lowy = -0.5f;
+		float highy = BOARD_HEIGHT-0.5f - INVIS_ROWS;
+
+		for (int i=0; i<BOARD_WIDTH; i++) {
+			for (int j=0; j<BOARD_HEIGHT-INVIS_ROWS; j++) {
+				getLineSeg(Vect3D(lowx, j-0.5f, 0), Vect3D(highx, j-0.5f, 0), linethickness).render();
+			}
+			getLineSeg(Vect3D(lowx, highy, 0), Vect3D(highx, highy, 0), linethickness).render();
+			getLineSeg(Vect3D(i-0.5f, lowy, 0), Vect3D(i-0.5f, highy, 0), linethickness).render();
+		}
+		getLineSeg(Vect3D(highx, lowy, 0), Vect3D(highx, highy, 0), linethickness).render();
 	}
 	void update() {
-		// TODO update logic
-		/*for (int i=0; i<10; i++) {
-			for (int j=1; j<22; j++) {
-				if (boardData[i][j] && !boardData[i][j-1]) {
-					boardData[i][j-1] = 1;
-					boardData[i][j] = 0;
-				}
-			}
-		}
-		for (int j=0; j<22; j++) {
+		block.update(cubes);
+
+		for (int j=0; j<BOARD_HEIGHT; j++) {
 			bool full = true;
-			for (int i=0; i<10; i++) {
-				if (!boardData[i][j]) full = 0;
+			for (int i=0; i<BOARD_WIDTH; i++) {
+				if (!cubes[i][j].getState()) full = 0;
 			}
 			if (full) {
-				for (int i=0; i<10; i++) {
-					if(boardData[i][j] < fadeDelay) boardData[i][j]++;
-					else boardData[i][j] = 0;
+				for (int i=0; i<BOARD_WIDTH; i++) {
+					if(cubes[i][j].getState() < fadeDelay) cubes[i][j].setState(cubes[i][j].getState()+1);
+					else cubes[i][j].setState(0);
 				}
+				// TODO: shift board above 1 down
 			}
 			else break;
 		}
 		bool top = false;
-		for (int i=0; i<10; i++) {
-			if (boardData[i][21]) top = true;
+		for (int i=0; i<BOARD_WIDTH; i++) {
+			if (cubes[i][BOARD_HEIGHT-1].getState()) top = true;
 		}
 		if (top) {
-			for (int i=0; i<10; i++) {
-				for (int j=0; j<22; j++) {
-					if(boardData[i][j]) boardData[i][j] = min(std::rand()%3, 1);
-				}
-			}
+			// TODO: GAME OVER
 		}
-
-		if (std::rand()%5) {
-			boardData[std::rand()%10][21] = true;
-		}*/
+	}
+	void input() {
+		
 	}
 };
 
@@ -162,7 +419,6 @@ class TetrisState: public AbstractState {
 private:
 	GameBoard gameBoard;
 	int lastUpdateTime;
-	int fadeDelay = 0.5f * FPS;
 public:
 	TetrisState() {
 		// setup play data
@@ -191,26 +447,6 @@ public:
 
 		// tramsform camera, TODO adjust this
 		myGL->setCameraDefaults();
-
-		// draw grid
-		float linethickness = 0.05f;
-		float xoff = -5;
-		float yoff = -11;
-		float lowx = -5.5f;
-		float highx = 4.5f;
-		float lowy = -11.5f;
-		float highy = 8.5f;
-
-		for (int i=0; i<10; i++) {
-			float ii = i+xoff;
-			for (int j=0; j<20; j++) {
-				float jj = j+yoff;
-				//myGL->drawLineSeg3D(Vect3D(lowx, jj-0.5f, 0), Vect3D(highx, jj-0.5f, 0), linethickness);
-			}
-			//myGL->drawLineSeg3D(Vect3D(lowx, highy, 0), Vect3D(highx, highy, 0), linethickness);
-			//myGL->drawLineSeg3D(Vect3D(ii-0.5f, lowy, 0), Vect3D(ii-0.5f, highy, 0), linethickness);
-		}
-		//myGL->drawLineSeg3D(Vect3D(highx, lowy, 0), Vect3D(highx, highy, 0), linethickness);
 
 		gameBoard.render();
 

@@ -15,8 +15,8 @@
 #include "datastruct.h"
 
 // constants
-const int	SCREEN_WIDTH	= 600;
-const int	SCREEN_HEIGHT	= 800;
+const int	SCREEN_WIDTH	= 1440;
+const int	SCREEN_HEIGHT	= 900;
 const GLfloat CAMERA_DISTANCE = 15.0f;
 const int	TEXT_WIDTH		= 8;
 const int	TEXT_HEIGHT		= 13;

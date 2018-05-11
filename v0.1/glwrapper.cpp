@@ -41,80 +41,6 @@ int GLWrapper::maxIndices = 0;
 // Note that you need an additional array (index array) to store how to traverse
 // the vertext data. For a cube, we need 36 entries in the index array.
 ///////////////////////////////////////////////////////////////////////////////
-/*void GLWrapper::drawQuad3D(Vect3D coord, Vect3D scale, Vect3D rotation, int flags) {
-	// enble and specify pointers to vertex arrays
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-    glNormalPointer(GL_FLOAT, 0, cubeNormals);
-    glColorPointer(3, GL_FLOAT, 0, cubeColors);
-    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
-
-	glPushMatrix();
-
-	Vect3D u(0, 1, 0);
-	Vect3D v = rotation;
-	// Quad3D will be 0, 1, 0
-	Vect3D n = Vect3D::cross(u, v);
-
-	// std::cout << a << " " << b << ": u" << u << " v" << v << " n" << n << "\n";
-
-	float tripleProduct = Vect3D::dot(u, Vect3D::cross(v, n));
-	float rotRads = std::acos(Vect3D::dot(u, v)/(u.magnitude()*v.magnitude()));
-	if (tripleProduct < 0) rotRads = 2*M_PI - rotRads;
-
-	// NOTE: the following tranformations are applied in reverse
-	glTranslatef(coord.x, coord.y, coord.z);	// OG 2, 2, 0
-	glRotatef(360*rotRads/(2*M_PI), n.x, n.y, n.z);
-	glScalef(scale.x, scale.y, scale.z);	//
-
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
-
-	glPopMatrix();
-
-	glDisableClientState(GL_VERTEX_ARRAY);	// disable vertex arrays
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-}*/
-
-/*void GLWrapper::drawLineSeg3D(Vect3D a, Vect3D b, float thic) {
-	// enble and specify pointers to vertex arrays
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-    glNormalPointer(GL_FLOAT, 0, cubeNormals);
-    glColorPointer(3, GL_FLOAT, 0, cubeColors);
-    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
-
-	glPushMatrix();
-	Vect3D u(0, 1, 0);
-	Vect3D v = b-a;
-	// Quad3D will be 0, 1, 0
-	Vect3D n = Vect3D::cross(u, v);
-
-	// std::cout << a << " " << b << ": u" << u << " v" << v << " n" << n << "\n";
-
-	float tripleProduct = Vect3D::dot(u, Vect3D::cross(v, n));
-	float rotRads = std::acos(Vect3D::dot(u, v)/(u.magnitude()*v.magnitude()));
-	if (tripleProduct < 0) rotRads = 2*M_PI - rotRads;
-	// std::cout << "tripProd: "<< tripleProduct << "\n";
-	// std::cout << "rotRads: "<< rotRads << " | " << 360*rotRads/(2*M_PI) << "\n";
-
-
-	// NOTE: the following tranformations are applied in reverse
-	Vect3D mid = (a+b)/2;
-	glTranslatef(mid.x, mid.y, mid.z);	// OG 2, 2, 0
-	glRotatef(360*rotRads/(2*M_PI), n.x, n.y, n.z);
-	glScalef(thic, v.magnitude(), thic);	//
-
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
-
-	glPopMatrix();
-
-	glDisableClientState(GL_VERTEX_ARRAY);	// disable vertex arrays
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-}*/
 
 GLWrapper::GLWrapper(int argc, char **argv) {
 	// init global vars
@@ -295,6 +221,7 @@ void GLWrapper::setCameraDefaults() {
 	glTranslatef(0, 0, -cameraDistance);
 	glRotatef(cameraAngleX, 1, 0, 0);	// pitch
 	glRotatef(cameraAngleY, 0, 1, 0);	// heading
+	glTranslatef(-BOARD_WIDTH/2.0f, -BOARD_HEIGHT/2.0f, 0);
 }
 
 void GLWrapper::clearBuffer() {
@@ -385,7 +312,6 @@ void GLWrapper::toPerspective() {
 
 int boardData[10][22];
 int last = -1;
-int fadeDelay = 30; // number of frames to exist before fading
 
 void GLWrapper::addDisplayCB(void (*func)(void)) {
 	myDisplayCB = func;
