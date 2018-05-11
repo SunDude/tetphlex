@@ -441,12 +441,16 @@ public:
 		}
 	}
 	void dropBlock() {
-		for (int i=BOARD_HEIGHT; i>=0; i--) {
+		int last = 0;
+		for (int i=0; i<BOARD_HEIGHT; i++) {
 			if (testPosD(0, -i)) {
-				offy += -i;
+				last = -i;
+			}
+			else {
 				break;
 			}
 		}
+		offy += last;
 	}
 	void setState(int s) {
 		state = s;

@@ -100,9 +100,15 @@ public:
 			if (full) {
 				for (int i=0; i<BOARD_WIDTH; i++) {
 					if(cubes[i][j].getState() < fadeDelay) cubes[i][j].setState(cubes[i][j].getState()+1);
-					else cubes[i][j].setState(0);
+					else {
+						cubes[i][j].setState(0);
+						// shift the column above 1 down
+						for (int jj=j; jj<BOARD_HEIGHT-1; jj++) {
+							cubes[i][jj].setState(cubes[i][jj+1].getState());
+							cubes[i][jj+1].setState(0);
+						}
+					}
 				}
-				// TODO: shift board above 1 down
 			}
 		}
 		bool top = false;
