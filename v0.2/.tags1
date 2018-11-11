@@ -1,0 +1,28 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+SCREEN_WIDTH	/home/sun/tetphlex/v0.1/glwrapper.h	/^const int	SCREEN_WIDTH	= 1440;$/;"	variable	line:18
+SCREEN_HEIGHT	/home/sun/tetphlex/v0.1/glwrapper.h	/^const int	SCREEN_HEIGHT	= 900;$/;"	variable	line:19
+CAMERA_DISTANCE	/home/sun/tetphlex/v0.1/glwrapper.h	/^const GLfloat CAMERA_DISTANCE = 15.0f;$/;"	variable	line:20
+TEXT_WIDTH	/home/sun/tetphlex/v0.1/glwrapper.h	/^const int	TEXT_WIDTH		= 8;$/;"	variable	line:21
+TEXT_HEIGHT	/home/sun/tetphlex/v0.1/glwrapper.h	/^const int	TEXT_HEIGHT		= 13;$/;"	variable	line:22
+GLWrapper	/home/sun/tetphlex/v0.1/glwrapper.h	/^class GLWrapper {$/;"	class	line:24
+myDisplayCB	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static void (*myDisplayCB)(void);$/;"	member	line:33	class:GLWrapper
+font	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static constexpr void *font = GLUT_BITMAP_8_BY_13;$/;"	member	line:35	class:GLWrapper
+screenWidth	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static int screenWidth;$/;"	member	line:36	class:GLWrapper
+screenHeight	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static int screenHeight;$/;"	member	line:37	class:GLWrapper
+mouseLeftDown	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static bool mouseLeftDown;$/;"	member	line:38	class:GLWrapper
+mouseRightDown	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static bool mouseRightDown;$/;"	member	line:39	class:GLWrapper
+mouseMiddleDown	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static bool mouseMiddleDown;$/;"	member	line:40	class:GLWrapper
+mouseX	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	member	line:41	class:GLWrapper
+mouseY	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static GLfloat mouseX, mouseY;$/;"	member	line:41	class:GLWrapper
+cameraAngleX	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static GLfloat cameraAngleX;$/;"	member	line:42	class:GLWrapper
+cameraAngleY	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static GLfloat cameraAngleY;$/;"	member	line:43	class:GLWrapper
+cameraDistance	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static GLfloat cameraDistance;$/;"	member	line:44	class:GLWrapper
+drawMode	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static int drawMode;$/;"	member	line:45	class:GLWrapper
+maxVertices	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static int maxVertices;$/;"	member	line:46	class:GLWrapper
+maxIndices	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static int maxIndices;$/;"	member	line:47	class:GLWrapper
+drawPoly3D	/home/sun/tetphlex/v0.1/glwrapper.h	/^	static void drawPoly3D(Polygon3D &data, Transformation &trans) {$/;"	function	line:75	class:GLWrapper	signature:(Polygon3D &data, Transformation &trans)
